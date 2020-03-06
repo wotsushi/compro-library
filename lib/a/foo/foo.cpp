@@ -1,5 +1,0 @@
-// begin
-int main()
-{
-}
-// end
