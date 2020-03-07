@@ -22,6 +22,18 @@ fn main() {
                 .iter()
                 .map(|package| {
                     package.modules.iter().map(move |module| {
+                        let doc = std::fs::read_to_string(format!(
+                            "lib/{package}/{module}/README.md",
+                            package = package.package,
+                            module = module
+                        ))
+                        .unwrap();
+                        let meta = regex::Regex::new(
+                            r"snippet's prefix: (?P<prefix>\$.*)\n(?P<description>.*)",
+                        )
+                        .unwrap()
+                        .captures(&doc)
+                        .unwrap();
                         let src = std::fs::read_to_string(format!(
                             "lib/{package}/{module}/{module}.cpp",
                             package = package.package,
@@ -31,8 +43,8 @@ fn main() {
                         (
                             module,
                             Snippet {
-                                prefix: "tst".to_string(),
-                                description: "first snippet".to_string(),
+                                prefix: meta.name("prefix").unwrap().as_str().to_string(),
+                                description: meta.name("description").unwrap().as_str().to_string(),
                                 body: regex::Regex::new(r"var_(\w+)")
                                     .unwrap()
                                     .captures_iter(&src)
