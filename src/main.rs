@@ -40,34 +40,43 @@ fn main() {
                             module = module
                         ))
                         .unwrap();
+                        let snippet = regex::Regex::new(r"var_(\w+)")
+                            .unwrap()
+                            .captures_iter(&src)
+                            .map(|cap| (cap[0].to_string(), cap[1].to_string()))
+                            .unique()
+                            .enumerate()
+                            .collect::<Vec<_>>()
+                            .iter()
+                            .fold(src, |s, (i, (var, name))| {
+                                s.replace(
+                                    var,
+                                    &format!(
+                                        "${{{index}:{identifier}}}",
+                                        index = i + 1,
+                                        identifier = name
+                                    ),
+                                )
+                            })
+                            .split("\n")
+                            .skip_while(|&line| !line.ends_with("// begin"))
+                            .skip(1)
+                            .take_while(|&line| !line.ends_with("// end"))
+                            .map(&str::to_string)
+                            .collect::<Vec<String>>();
+                        let (indent_size, _) = snippet[0]
+                            .chars()
+                            .enumerate()
+                            .find(|&(_, c)| c != ' ')
+                            .unwrap();
                         (
                             module,
                             Snippet {
                                 prefix: meta.name("prefix").unwrap().as_str().to_string(),
                                 description: meta.name("description").unwrap().as_str().to_string(),
-                                body: regex::Regex::new(r"var_(\w+)")
-                                    .unwrap()
-                                    .captures_iter(&src)
-                                    .map(|cap| (cap[0].to_string(), cap[1].to_string()))
-                                    .unique()
-                                    .enumerate()
-                                    .collect::<Vec<_>>()
+                                body: snippet
                                     .iter()
-                                    .fold(src, |s, (i, (var, name))| {
-                                        s.replace(
-                                            var,
-                                            &format!(
-                                                "${{{index}:{identifier}}}",
-                                                index = i + 1,
-                                                identifier = name
-                                            ),
-                                        )
-                                    })
-                                    .split("\n")
-                                    .skip_while(|&line| line != "// begin")
-                                    .skip(1)
-                                    .take_while(|&line| line != "// end")
-                                    .map(&str::to_string)
+                                    .map(|line| line[indent_size..].to_string())
                                     .collect::<Vec<String>>(),
                             },
                         )
