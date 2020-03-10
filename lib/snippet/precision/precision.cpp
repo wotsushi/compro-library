@@ -15,11 +15,25 @@ typedef vector<ll> vi;
 const ll INF = 1e18;
 const ll MOD = 1e9 + 7;
 
-int main()
+string precision(ll var_15, double var_x)
 {
-    ll var_15 = 15;
-    double var_x = 3.14159265358979323846264338327950288419716939937510582097494459;
+    ostringstream cout;
     // begin
     cout << fixed << setprecision(var_15) << var_x << endl;
     // end
+    return cout.str();
+}
+
+int main()
+{
+    {
+        string actual = precision(15, 3.14159265358979323846264338327950288419716939937510582097494459);
+        string expected = "3.141592653589793\n";
+        assert(actual == expected);
+    }
+    {
+        string actual = precision(3, 3.14);
+        string expected = "3.140\n";
+        assert(actual == expected);
+    }
 }
