@@ -1,0 +1,16 @@
+{
+  "library": {
+    "prefix": "lib",
+    "body": [
+      "# ${1:Title}",
+      "",
+      "snippet's prefix: $${2:a}",
+      "${3:description}",
+      "",
+      "## 説明",
+      "",
+      ""
+    ],
+    "description": "library document template"
+  }
+}
