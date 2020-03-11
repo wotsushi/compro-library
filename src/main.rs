@@ -35,9 +35,14 @@ fn main() {
                         .captures(&doc)
                         .unwrap();
                         let src = std::fs::read_to_string(format!(
-                            "lib/{package}/{module}/{module}.cpp",
+                            "lib/{package}/{module}/{module}.{ext}",
                             package = package.package,
-                            module = module
+                            module = module,
+                            ext = if package.package == "snippet" {
+                                "cpp"
+                            } else {
+                                "hpp"
+                            }
                         ))
                         .unwrap();
                         let snippet = regex::Regex::new(r"var_(\w+)")

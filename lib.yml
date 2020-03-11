@@ -2,3 +2,6 @@
   modules:
     - template
     - precision
+- package: struct
+  modules:
+    - mint
