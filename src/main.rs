@@ -42,12 +42,43 @@ struct AOJTestCase {
     output: String,
 }
 
+fn compile(dir: &str, module: &str) -> Option<String> {
+    let err = std::process::Command::new("g++-9")
+        .arg(format!("{}/{}.cpp", dir, module))
+        .arg("-o")
+        .arg(format!("{}/{}.out", dir, module))
+        .output()
+        .unwrap()
+        .stderr;
+    if err.is_empty() {
+        None
+    } else {
+        Some(String::from_utf8(err).unwrap())
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     match clap::App::new("cmplib")
         .about("compro-library CLI")
         .version("0.0.1")
         .subcommand(clap::App::new("snip").about("generate VSCode's snippets"))
+        .subcommand(
+            clap::App::new("test")
+                .about("run modules' tests")
+                .arg(
+                    clap::Arg::with_name("package")
+                        .help("test target package")
+                        .takes_value(true)
+                        .required(true),
+                )
+                .arg(
+                    clap::Arg::with_name("module")
+                        .help("test target module")
+                        .takes_value(true)
+                        .required(true),
+                ),
+        )
         .subcommand(
             clap::App::new("fetch")
                 .about("fetch test cases from AOJ")
@@ -158,6 +189,73 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 )
                 .unwrap(),
             )?;
+            Ok(())
+        }
+        ("test", Some(test_matches)) => {
+            let package = test_matches.value_of("package").unwrap();
+            let module = test_matches.value_of("module").unwrap();
+            let dir = format!("lib/{}/{}", package, module);
+
+            // handmade
+            if let Some(err) = compile(&dir, &module) {
+                eprintln!("Compile failed: {}, {}/{}.cpp", err, dir, module);
+                return Ok(());
+            }
+            println!("Compile succeded: {}/{}.cpp", dir, module);
+            let res = std::process::Command::new(format!("{}/{}.out", dir, module))
+                .output()
+                .unwrap();
+            if !res.stderr.is_empty() {
+                eprintln!(
+                    "Test failed: {:?}",
+                    String::from_utf8(res.stderr.to_vec()).unwrap()
+                );
+            }
+            println!("Test passed");
+
+            // test suite
+            for entry in std::fs::read_dir(&dir)? {
+                let entry = entry?;
+                if entry.file_type()?.is_dir() {
+                    let suite_dir = format!("{}/{}", dir, entry.file_name().into_string().unwrap());
+                    if let Some(err) = compile(&suite_dir, &module) {
+                        eprintln!("compile failed: {}, {}/{}.cpp", err, suite_dir, module);
+                        return Ok(());
+                    }
+                    println!("Compile succeded: {}/{}.cpp", dir, module);
+                    let mut suite_entries = std::fs::read_dir(format!("{}/in", suite_dir))?
+                        .map(|entry| entry.unwrap())
+                        .collect::<Vec<_>>();
+                    suite_entries.sort_by_key(|entry| entry.path());
+                    for suite_entry in suite_entries {
+                        let testcase = suite_entry.file_name().into_string().unwrap();
+                        let res =
+                            std::process::Command::new(format!("{}/{}.out", suite_dir, module))
+                                .stdin(
+                                    std::fs::File::open(format!("{}/in/{}", suite_dir, testcase))
+                                        .unwrap(),
+                                )
+                                .output()
+                                .unwrap();
+                        if !res.stderr.is_empty() {
+                            eprintln!(
+                                "Test failed: {:?}",
+                                String::from_utf8(res.stderr.to_vec()).unwrap()
+                            );
+                        }
+                        let actual = String::from_utf8(res.stdout.to_vec()).unwrap();
+                        let expected =
+                            std::fs::read_to_string(format!("{}/out/{}", suite_dir, testcase))
+                                .unwrap();
+                        if actual != expected {
+                            eprintln!("Test failed: actual = {}, expected = {}", actual, expected);
+                            return Ok(());
+                        }
+                        println!("Test passed: {}", testcase);
+                    }
+                }
+            }
+
             Ok(())
         }
         ("fetch", Some(fetch_matches)) => {

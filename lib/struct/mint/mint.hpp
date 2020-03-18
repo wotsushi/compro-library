@@ -11,7 +11,7 @@ struct mint
 {
     ll a;
 
-    mint(ll x = 0) : a(x % var_MOD) {}
+    mint(ll x = 0) : a((x % var_MOD + var_MOD) % var_MOD) {}
     mint pow(ll rhs)
     {
         ll exp = rhs;
@@ -62,6 +62,10 @@ struct mint
     }
     mint &operator*=(ll rhs)
     {
+        if (rhs < 0)
+        {
+            rhs += var_MOD;
+        }
         a = a * rhs % var_MOD;
         return *this;
     }
@@ -75,7 +79,7 @@ struct mint
         *this *= mint(rhs).pow(var_MOD - 2);
         return *this;
     }
-    mint &operator/=(mint rhs)
+    mint &operator/=(const mint rhs)
     {
         *this /= rhs.a;
         return *this;
@@ -102,55 +106,60 @@ struct mint
     }
 };
 
-mint operator+(mint &lhs, mint &rhs)
+mint operator+(const mint &lhs, const mint &rhs)
 {
     return mint(lhs.a) += rhs;
 }
-mint operator+(mint &lhs, ll &rhs)
+mint operator+(const mint &lhs, const ll &rhs)
 {
     return mint(lhs.a) += rhs;
 }
-mint operator+(ll &lhs, mint &rhs)
+mint operator+(const ll &lhs, mint &rhs)
 {
     return mint(lhs) += rhs;
 }
-mint operator-(mint &lhs, mint &rhs)
+mint operator-(const mint &lhs, const mint &rhs)
 {
     return mint(lhs.a) -= rhs;
 }
-mint operator-(mint &lhs, ll &rhs)
+mint operator-(const mint &lhs, const ll &rhs)
 {
     return mint(lhs.a) -= rhs;
 }
-mint operator-(ll &lhs, mint &rhs)
+mint operator-(const ll &lhs, const mint &rhs)
 {
     return mint(lhs) -= rhs;
 }
-mint operator*(mint &lhs, mint &rhs)
+mint operator*(const mint &lhs, const mint &rhs)
 {
     return mint(lhs.a) *= rhs;
 }
-mint operator*(mint &lhs, ll &rhs)
+mint operator*(const mint &lhs, const ll &rhs)
 {
     return mint(lhs.a) *= rhs;
 }
-mint operator*(ll &lhs, mint &rhs)
+mint operator*(const ll &lhs, const mint &rhs)
 {
     return mint(lhs) *= rhs;
 }
-mint operator/(mint &lhs, mint &rhs)
+mint operator/(const mint &lhs, const mint &rhs)
 {
     return mint(lhs.a) /= rhs;
 }
-mint operator/(mint &lhs, ll &rhs)
+mint operator/(const mint &lhs, const ll &rhs)
 {
     return mint(lhs.a) /= rhs;
 }
-mint operator/(ll &lhs, mint &rhs)
+mint operator/(const ll &lhs, const mint &rhs)
 {
     return mint(lhs) /= rhs;
 }
-ostream &operator<<(ostream &os, mint &i)
+istream &operator>>(istream &is, mint &i)
+{
+    is >> i.a;
+    return is;
+}
+ostream &operator<<(ostream &os, const mint &i)
 {
     os << i.a;
     return os;
