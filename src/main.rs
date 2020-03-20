@@ -57,6 +57,77 @@ fn compile(dir: &str, module: &str) -> Option<String> {
     }
 }
 
+fn test_module(package: &str, module: &str) {
+    let dir = format!("lib/{}/{}", package, module);
+
+    // handmade
+    if let Some(err) = compile(&dir, &module) {
+        eprintln!("Compile failed: {}, {}/{}.cpp", err, dir, module);
+        return;
+    }
+    println!("Compile succeded: {}/{}.cpp", dir, module);
+    let res = std::process::Command::new(format!("{}/{}.out", dir, module))
+        .output()
+        .unwrap();
+    if !res.stderr.is_empty() {
+        eprintln!(
+            "Test failed: {:?}",
+            String::from_utf8(res.stderr.to_vec()).unwrap()
+        );
+    }
+    println!("Test passed");
+
+    // test suite
+    for entry in std::fs::read_dir(&dir).unwrap() {
+        let entry = entry.unwrap();
+        if entry.file_type().unwrap().is_dir() {
+            let suite_dir = format!("{}/{}", dir, entry.file_name().into_string().unwrap());
+            if let Some(err) = compile(&suite_dir, &module) {
+                eprintln!("compile failed: {}, {}/{}.cpp", err, suite_dir, module);
+                return;
+            }
+            println!("Compile succeded: {}/{}.cpp", dir, module);
+            let mut suite_entries = std::fs::read_dir(format!("{}/in", suite_dir))
+                .unwrap()
+                .map(|entry| entry.unwrap())
+                .collect::<Vec<_>>();
+            suite_entries.sort_by_key(|entry| entry.path());
+            for suite_entry in suite_entries {
+                let testcase = suite_entry.file_name().into_string().unwrap();
+                let res = std::process::Command::new(format!("{}/{}.out", suite_dir, module))
+                    .stdin(std::fs::File::open(format!("{}/in/{}", suite_dir, testcase)).unwrap())
+                    .output()
+                    .unwrap();
+                if !res.stderr.is_empty() {
+                    eprintln!(
+                        "Test failed: {:?}",
+                        String::from_utf8(res.stderr.to_vec()).unwrap()
+                    );
+                }
+                let actual = String::from_utf8(res.stdout.to_vec()).unwrap();
+                let expected =
+                    std::fs::read_to_string(format!("{}/out/{}", suite_dir, testcase)).unwrap();
+                if actual != expected {
+                    eprintln!("Test failed: actual = {}, expected = {}", actual, expected);
+                    return;
+                }
+                println!("Test passed: {}", testcase);
+            }
+        }
+    }
+}
+
+fn test_package(package: &str) {
+    let dir = format!("lib/{}", package);
+    // test suite
+    for entry in std::fs::read_dir(&dir).unwrap() {
+        let entry = entry.unwrap();
+        if entry.file_type().unwrap().is_dir() {
+            test_module(package, entry.file_name().to_str().unwrap());
+        }
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     match clap::App::new("cmplib")
@@ -69,14 +140,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .arg(
                     clap::Arg::with_name("package")
                         .help("test target package")
-                        .takes_value(true)
-                        .required(true),
+                        .takes_value(true),
                 )
                 .arg(
                     clap::Arg::with_name("module")
                         .help("test target module")
-                        .takes_value(true)
-                        .required(true),
+                        .takes_value(true),
                 ),
         )
         .subcommand(
@@ -192,70 +261,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             Ok(())
         }
         ("test", Some(test_matches)) => {
-            let package = test_matches.value_of("package").unwrap();
-            let module = test_matches.value_of("module").unwrap();
-            let dir = format!("lib/{}/{}", package, module);
-
-            // handmade
-            if let Some(err) = compile(&dir, &module) {
-                eprintln!("Compile failed: {}, {}/{}.cpp", err, dir, module);
-                return Ok(());
-            }
-            println!("Compile succeded: {}/{}.cpp", dir, module);
-            let res = std::process::Command::new(format!("{}/{}.out", dir, module))
-                .output()
-                .unwrap();
-            if !res.stderr.is_empty() {
-                eprintln!(
-                    "Test failed: {:?}",
-                    String::from_utf8(res.stderr.to_vec()).unwrap()
-                );
-            }
-            println!("Test passed");
-
-            // test suite
-            for entry in std::fs::read_dir(&dir)? {
-                let entry = entry?;
-                if entry.file_type()?.is_dir() {
-                    let suite_dir = format!("{}/{}", dir, entry.file_name().into_string().unwrap());
-                    if let Some(err) = compile(&suite_dir, &module) {
-                        eprintln!("compile failed: {}, {}/{}.cpp", err, suite_dir, module);
-                        return Ok(());
-                    }
-                    println!("Compile succeded: {}/{}.cpp", dir, module);
-                    let mut suite_entries = std::fs::read_dir(format!("{}/in", suite_dir))?
-                        .map(|entry| entry.unwrap())
-                        .collect::<Vec<_>>();
-                    suite_entries.sort_by_key(|entry| entry.path());
-                    for suite_entry in suite_entries {
-                        let testcase = suite_entry.file_name().into_string().unwrap();
-                        let res =
-                            std::process::Command::new(format!("{}/{}.out", suite_dir, module))
-                                .stdin(
-                                    std::fs::File::open(format!("{}/in/{}", suite_dir, testcase))
-                                        .unwrap(),
-                                )
-                                .output()
-                                .unwrap();
-                        if !res.stderr.is_empty() {
-                            eprintln!(
-                                "Test failed: {:?}",
-                                String::from_utf8(res.stderr.to_vec()).unwrap()
-                            );
+            let arg_package = test_matches.value_of("package");
+            let arg_module = test_matches.value_of("module");
+            match (arg_package, arg_module) {
+                (Some(package), Some(module)) => test_module(package, module),
+                (Some(package), None) => test_package(package),
+                _ => {
+                    for entry in std::fs::read_dir("lib").unwrap() {
+                        let entry = entry.unwrap();
+                        if entry.file_type().unwrap().is_dir() {
+                            test_package(entry.file_name().to_str().unwrap());
                         }
-                        let actual = String::from_utf8(res.stdout.to_vec()).unwrap();
-                        let expected =
-                            std::fs::read_to_string(format!("{}/out/{}", suite_dir, testcase))
-                                .unwrap();
-                        if actual != expected {
-                            eprintln!("Test failed: actual = {}, expected = {}", actual, expected);
-                            return Ok(());
-                        }
-                        println!("Test passed: {}", testcase);
                     }
                 }
             }
-
             Ok(())
         }
         ("fetch", Some(fetch_matches)) => {
