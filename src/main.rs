@@ -42,6 +42,54 @@ struct AOJTestCase {
     output: String,
 }
 
+enum TestError {
+    CompileError(String),
+    RuntimeError(String),
+    WrongAnswer {
+        testcase: String,
+        actual: String,
+        expected: String,
+    },
+}
+
+impl std::fmt::Display for TestError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            TestError::CompileError(msg) => write!(
+                f,
+                "{}: {}",
+                ansi_term::Colour::Red.paint("Compile Error"),
+                msg
+            ),
+            TestError::RuntimeError(msg) => write!(
+                f,
+                "{}: {}",
+                ansi_term::Colour::Red.paint("Runtime Error"),
+                msg
+            ),
+            TestError::WrongAnswer {
+                testcase,
+                actual,
+                expected,
+            } => write!(
+                f,
+                "{}(#{}): actual = {}, expected = {}",
+                ansi_term::Colour::Red.paint("Wrong Answer"),
+                testcase,
+                actual,
+                expected
+            ),
+        }
+    }
+}
+impl std::fmt::Debug for TestError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        <dyn std::fmt::Display>::fmt(self, f)
+    }
+}
+
+impl std::error::Error for TestError {}
+
 fn compile(dir: &str, module: &str) -> Option<String> {
     let err = std::process::Command::new("g++-9")
         .arg(format!("{}/{}.cpp", dir, module))
@@ -57,17 +105,12 @@ fn compile(dir: &str, module: &str) -> Option<String> {
     }
 }
 
-fn test_module(package: &str, module: &str) {
+fn test_module(package: &str, module: &str) -> Result<(), Box<dyn std::error::Error>> {
     let dir = format!("lib/{}/{}", package, module);
 
     // handmade
     if let Some(err) = compile(&dir, &module) {
-        eprintln!(
-            "{}: {}",
-            ansi_term::Colour::Red.paint("Compile failed"),
-            err
-        );
-        return;
+        return Err(Box::new(TestError::CompileError(err)));
     }
     println!(
         "{}: {}/{}.cpp",
@@ -79,11 +122,9 @@ fn test_module(package: &str, module: &str) {
         .output()
         .unwrap();
     if !res.stderr.is_empty() {
-        eprintln!(
-            "{}: {}",
-            ansi_term::Colour::Red.paint("Test failed"),
-            String::from_utf8(res.stderr.to_vec()).unwrap()
-        );
+        return Err(Box::new(TestError::RuntimeError(
+            String::from_utf8(res.stderr.to_vec()).unwrap(),
+        )));
     }
     println!("{}", ansi_term::Colour::Green.paint("Test passed"));
 
@@ -93,12 +134,7 @@ fn test_module(package: &str, module: &str) {
         if entry.file_type().unwrap().is_dir() {
             let suite_dir = format!("{}/{}", dir, entry.file_name().into_string().unwrap());
             if let Some(err) = compile(&suite_dir, &module) {
-                eprintln!(
-                    "{}: {}",
-                    ansi_term::Colour::Red.paint("Compile failed"),
-                    err
-                );
-                return;
+                return Err(Box::new(TestError::CompileError(err)));
             }
             println!(
                 "{}: {}/{}.cpp",
@@ -118,23 +154,19 @@ fn test_module(package: &str, module: &str) {
                     .output()
                     .unwrap();
                 if !res.stderr.is_empty() {
-                    eprintln!(
-                        "{}: {}",
-                        ansi_term::Colour::Red.paint("Test failed"),
-                        String::from_utf8(res.stderr.to_vec()).unwrap()
-                    );
+                    return Err(Box::new(TestError::RuntimeError(
+                        String::from_utf8(res.stderr.to_vec()).unwrap(),
+                    )));
                 }
                 let actual = String::from_utf8(res.stdout.to_vec()).unwrap();
                 let expected =
                     std::fs::read_to_string(format!("{}/out/{}", suite_dir, testcase)).unwrap();
                 if actual != expected {
-                    eprintln!(
-                        "{}: actual = {}, expected = {}",
-                        ansi_term::Colour::Red.paint("Test failed"),
+                    return Err(Box::new(TestError::WrongAnswer {
+                        testcase,
                         actual,
-                        expected
-                    );
-                    return;
+                        expected,
+                    }));
                 }
                 println!(
                     "{}: {}",
@@ -144,17 +176,19 @@ fn test_module(package: &str, module: &str) {
             }
         }
     }
+    Ok(())
 }
 
-fn test_package(package: &str) {
+fn test_package(package: &str) -> Result<(), Box<dyn std::error::Error>> {
     let dir = format!("lib/{}", package);
     // test suite
     for entry in std::fs::read_dir(&dir).unwrap() {
         let entry = entry.unwrap();
         if entry.file_type().unwrap().is_dir() {
-            test_module(package, entry.file_name().to_str().unwrap());
+            test_module(package, entry.file_name().to_str().unwrap())?
         }
     }
+    Ok(())
 }
 
 #[tokio::main]
@@ -299,12 +333,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     for entry in std::fs::read_dir("lib").unwrap() {
                         let entry = entry.unwrap();
                         if entry.file_type().unwrap().is_dir() {
-                            test_package(entry.file_name().to_str().unwrap());
+                            test_package(entry.file_name().to_str().unwrap())?
                         }
                     }
+                    Ok(())
                 }
             }
-            Ok(())
         }
         ("fetch", Some(fetch_matches)) => {
             let id = fetch_matches.value_of("id").unwrap();
