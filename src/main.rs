@@ -62,20 +62,30 @@ fn test_module(package: &str, module: &str) {
 
     // handmade
     if let Some(err) = compile(&dir, &module) {
-        eprintln!("Compile failed: {}, {}/{}.cpp", err, dir, module);
+        eprintln!(
+            "{}: {}",
+            ansi_term::Colour::Red.paint("Compile failed"),
+            err
+        );
         return;
     }
-    println!("Compile succeded: {}/{}.cpp", dir, module);
+    println!(
+        "{}: {}/{}.cpp",
+        ansi_term::Colour::Green.paint("Compile succeeded"),
+        dir,
+        module
+    );
     let res = std::process::Command::new(format!("{}/{}.out", dir, module))
         .output()
         .unwrap();
     if !res.stderr.is_empty() {
         eprintln!(
-            "Test failed: {:?}",
+            "{}: {}",
+            ansi_term::Colour::Red.paint("Test failed"),
             String::from_utf8(res.stderr.to_vec()).unwrap()
         );
     }
-    println!("Test passed");
+    println!("{}", ansi_term::Colour::Green.paint("Test passed"));
 
     // test suite
     for entry in std::fs::read_dir(&dir).unwrap() {
@@ -83,10 +93,19 @@ fn test_module(package: &str, module: &str) {
         if entry.file_type().unwrap().is_dir() {
             let suite_dir = format!("{}/{}", dir, entry.file_name().into_string().unwrap());
             if let Some(err) = compile(&suite_dir, &module) {
-                eprintln!("compile failed: {}, {}/{}.cpp", err, suite_dir, module);
+                eprintln!(
+                    "{}: {}",
+                    ansi_term::Colour::Red.paint("Compile failed"),
+                    err
+                );
                 return;
             }
-            println!("Compile succeded: {}/{}.cpp", dir, module);
+            println!(
+                "{}: {}/{}.cpp",
+                ansi_term::Colour::Green.paint("Compile succeeded"),
+                dir,
+                module
+            );
             let mut suite_entries = std::fs::read_dir(format!("{}/in", suite_dir))
                 .unwrap()
                 .map(|entry| entry.unwrap())
@@ -100,7 +119,8 @@ fn test_module(package: &str, module: &str) {
                     .unwrap();
                 if !res.stderr.is_empty() {
                     eprintln!(
-                        "Test failed: {:?}",
+                        "{}: {}",
+                        ansi_term::Colour::Red.paint("Test failed"),
                         String::from_utf8(res.stderr.to_vec()).unwrap()
                     );
                 }
@@ -108,10 +128,19 @@ fn test_module(package: &str, module: &str) {
                 let expected =
                     std::fs::read_to_string(format!("{}/out/{}", suite_dir, testcase)).unwrap();
                 if actual != expected {
-                    eprintln!("Test failed: actual = {}, expected = {}", actual, expected);
+                    eprintln!(
+                        "{}: actual = {}, expected = {}",
+                        ansi_term::Colour::Red.paint("Test failed"),
+                        actual,
+                        expected
+                    );
                     return;
                 }
-                println!("Test passed: {}", testcase);
+                println!(
+                    "{}: {}",
+                    ansi_term::Colour::Green.paint("Test passed"),
+                    testcase
+                );
             }
         }
     }
