@@ -270,7 +270,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 }
                             ))
                             .unwrap();
-                            let snippet = regex::Regex::new(r"var_(\w+)")
+                            let mut snippet = regex::Regex::new(r"var_(\w+)")
                                 .unwrap()
                                 .captures_iter(&src)
                                 .map(|cap| (cap[0].to_string(), cap[1].to_string()))
@@ -294,6 +294,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 .take_while(|&line| !line.ends_with("// end"))
                                 .map(&str::to_string)
                                 .collect::<Vec<String>>();
+                            snippet.insert(0, format!("#pragma region {}", module));
+                            snippet.push(format!("#pragma endregion {}", module));
                             let (indent_size, _) = snippet[0]
                                 .chars()
                                 .enumerate()
