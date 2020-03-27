@@ -27,30 +27,25 @@ struct AOJTestCase {
     output: String,
 }
 
-#[tokio::main]
-pub async fn fetch_testcase_from_aoj(
+pub fn fetch_testcase_from_aoj(
     id: &str,
     package: &str,
     module: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let header_info = reqwest::get(&format!(
+    let header_info = reqwest::blocking::get(&format!(
         "https://judgedat.u-aizu.ac.jp/testcases/{}/header",
         id
-    ))
-    .await?
-    .json::<AOJHeaderInfo>()
-    .await?;
+    ))?
+    .json::<AOJHeaderInfo>()?;
     let dir = format!("lib/{}/{}/{}", package, module, id);
     std::fs::create_dir_all(format!("{}/in", dir))?;
     std::fs::create_dir_all(format!("{}/out", dir))?;
     for header in header_info.headers {
-        let testcase = reqwest::get(&format!(
+        let testcase = reqwest::blocking::get(&format!(
             "https://judgedat.u-aizu.ac.jp/testcases/{}/{}",
             id, header.serial
-        ))
-        .await?
-        .json::<AOJTestCase>()
-        .await?;
+        ))?
+        .json::<AOJTestCase>()?;
         if !testcase.input.contains("terminated") && !testcase.output.contains("terminated") {
             std::fs::write(format!("{}/in/{}", dir, header.serial), &testcase.input)?;
             std::fs::write(format!("{}/out/{}", dir, header.serial), &testcase.output)?;

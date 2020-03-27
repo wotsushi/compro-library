@@ -2,8 +2,7 @@ mod fetch;
 mod snip;
 mod test;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     match clap::App::new("cmplib")
         .about("compro-library CLI")
         .version("0.0.1")
