@@ -47,8 +47,11 @@ pub fn fetch_testcase_from_aoj(
         ))?
         .json::<AOJTestCase>()?;
         if !testcase.input.contains("terminated") && !testcase.output.contains("terminated") {
-            std::fs::write(format!("{}/in/{}", dir, header.serial), &testcase.input)?;
-            std::fs::write(format!("{}/out/{}", dir, header.serial), &testcase.output)?;
+            std::fs::write(format!("{}/in/{:03}", dir, header.serial), &testcase.input)?;
+            std::fs::write(
+                format!("{}/out/{:03}", dir, header.serial),
+                &testcase.output,
+            )?;
         }
     }
     Ok(())
