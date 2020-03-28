@@ -1,5 +1,6 @@
 # ModInt
 
+version: 1.0
 snippet's prefix: $m
 素数MODを法とした演算をサポートする整数です。
 

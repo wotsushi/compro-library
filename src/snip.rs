@@ -29,7 +29,7 @@ pub fn generate_snippet() -> Result<(), Box<dyn std::error::Error>> {
                         ))
                         .unwrap();
                         let meta = regex::Regex::new(
-                            r"snippet's prefix: (?P<prefix>\$.*)\n(?P<description>.*)",
+                            r"version: (?P<version>\d+\.\d+)\nsnippet's prefix: (?P<prefix>\$.*)\n(?P<description>.*)",
                         )
                         .unwrap()
                         .captures(&doc)
@@ -69,7 +69,14 @@ pub fn generate_snippet() -> Result<(), Box<dyn std::error::Error>> {
                             .take_while(|&line| !line.ends_with("// end"))
                             .map(&str::to_string)
                             .collect::<Vec<String>>();
-                        snippet.insert(0, format!("#pragma region {}", module));
+                        snippet.insert(
+                            0,
+                            format!(
+                                "#pragma region {} {}",
+                                module,
+                                meta.name("version").unwrap().as_str()
+                            ),
+                        );
                         snippet.push(format!("#pragma endregion {}", module));
                         let (indent_size, _) = snippet[0]
                             .chars()

@@ -1,5 +1,6 @@
 # テンプレート
 
+version: 1.0
 snippet's prefix: $t
 テンプレートコードです。
 

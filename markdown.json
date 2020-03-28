@@ -4,8 +4,9 @@
     "body": [
       "# ${1:Title}",
       "",
-      "snippet's prefix: $${2:a}",
-      "${3:description}",
+      "version: ${2:1.0}",
+      "snippet's prefix: $${3:a}",
+      "${4:description}",
       "",
       "## 説明",
       "",
