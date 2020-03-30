@@ -46,12 +46,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .get_matches()
         .subcommand()
     {
-        ("snip", _) => snip::generate_snippet(),
+        ("snip", _) => snip::write_snippet(),
         ("test", Some(test_matches)) => test::test(
             test_matches.value_of("package"),
             test_matches.value_of("module"),
         ),
-        ("fetch", Some(fetch_matches)) => fetch::fetch_testcase_from_aoj(
+        ("fetch", Some(fetch_matches)) => fetch::fetch_and_write_testcase_from_aoj(
             fetch_matches.value_of("id").unwrap(),
             fetch_matches.value_of("package").unwrap(),
             fetch_matches.value_of("module").unwrap(),

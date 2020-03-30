@@ -1,3 +1,22 @@
+pub fn test(
+    arg_package: Option<&str>,
+    arg_module: Option<&str>,
+) -> Result<(), Box<dyn std::error::Error>> {
+    match (arg_package, arg_module) {
+        (Some(package), Some(module)) => test_module(package, module),
+        (Some(package), None) => test_package(package),
+        _ => {
+            for entry in std::fs::read_dir("lib").unwrap() {
+                let entry = entry.unwrap();
+                if entry.file_type().unwrap().is_dir() {
+                    test_package(entry.file_name().to_str().unwrap())?
+                }
+            }
+            Ok(())
+        }
+    }
+}
+
 enum TestError {
     CompileError(String),
     RuntimeError(String),
@@ -144,23 +163,4 @@ fn test_package(package: &str) -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     Ok(())
-}
-
-pub fn test(
-    arg_package: Option<&str>,
-    arg_module: Option<&str>,
-) -> Result<(), Box<dyn std::error::Error>> {
-    match (arg_package, arg_module) {
-        (Some(package), Some(module)) => test_module(package, module),
-        (Some(package), None) => test_package(package),
-        _ => {
-            for entry in std::fs::read_dir("lib").unwrap() {
-                let entry = entry.unwrap();
-                if entry.file_type().unwrap().is_dir() {
-                    test_package(entry.file_name().to_str().unwrap())?
-                }
-            }
-            Ok(())
-        }
-    }
 }
