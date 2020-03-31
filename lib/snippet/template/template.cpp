@@ -1,4 +1,5 @@
 // begin
+#pragma region def
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -17,6 +18,7 @@ typedef pair<ll, ll> ii;
 
 const ll INF = 1e18;
 const ll MOD = 1e9 + 7;
+#pragma endregion enddef
 
 int main()
 {
