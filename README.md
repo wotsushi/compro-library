@@ -1,4 +1,7 @@
 # compro-library
+
+![Test](https://github.com/wotsushi/compro-library/workflows/Rust/badge.svg)
+
 Competitive programming's library
 
 ## ライブラリの構造
