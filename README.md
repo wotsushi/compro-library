@@ -1,6 +1,6 @@
 # compro-library
 
-![Test](https://github.com/wotsushi/compro-library/workflows/Rust/badge.svg)
+![Test](https://github.com/wotsushi/compro-library/workflows/Test/badge.svg)
 
 Competitive programming's library
 
