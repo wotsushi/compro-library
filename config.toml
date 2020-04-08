@@ -1,0 +1,18 @@
+baseURL = "/"
+languageCode = "ja"
+title = "wotsushi's 競技プログラミングライブラリ"
+theme = "hugo-theme-learn"
+
+defaultContentLanguage = "cpp"
+defaultContentLanguageInSubdir = true
+
+[Languages]
+[Languages.cpp]
+title = "wotsushi's 競技プログラミングライブラリ"
+weight = 1
+languageName = "C++"
+
+# [Languages.py]
+# title = "wotsushi's 競技プログラミングライブラリ"
+# weight = 1
+# languageName = "Python"

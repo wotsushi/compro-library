@@ -31,19 +31,19 @@ fn generate_snippet(
                 .map(|package| {
                     package.modules.iter().map(move |module| {
                         let doc = read_to_string(format!(
-                            "lib/{package}/{module}/README.md",
+                            "content/{package}/{module}/_index.md",
                             package = package.package,
                             module = module
                         ))
                         .unwrap();
                         let meta = regex::Regex::new(
-                            r"version: (?P<version>\d+\.\d+)\nsnippet's prefix: (?P<prefix>\$.*)\n(?P<description>.*)",
+                            r"version: (?P<version>\d+\.\d+)\nprefix: (?P<prefix>\$.*)\n---\n\n\{\{< meta >\}\}\n\n(?P<description>.*)",
                         )
                         .unwrap()
                         .captures(&doc)
                         .unwrap();
                         let src = read_to_string(format!(
-                            "lib/{package}/{module}/{module}.{ext}",
+                            "content/{package}/{module}/{module}.{ext}",
                             package = package.package,
                             module = module,
                             ext = if package.package == "snippet" {
@@ -120,17 +120,23 @@ fn test_generate_snippet() {
     - mint
 "
             .to_string()),
-            "lib/snippet/template/README.md" => Ok("# テンプレート
-
+            "content/snippet/template/_index.md" => Ok("---
+title: テンプレート
 version: 1.0
-snippet's prefix: $t
+prefix: $t
+---
+
+{{< meta >}}
+
 hoge
 
 ## 説明
 hogehoge
+
+{{< src >}}
 "
             .to_string()),
-            "lib/snippet/template/template.cpp" => Ok("// begin
+            "content/snippet/template/template.cpp" => Ok("// begin
 #include <bits/stdc++.h>
 using namespace std;
 // end
@@ -146,17 +152,24 @@ int test = []() {
 }();
 "
             .to_string()),
-            "lib/snippet/precision/README.md" => Ok("# 浮動小数点数の標準出力
-
+            "content/snippet/precision/_index.md" => Ok("---
+title: 浮動小数点数の標準出力
 version: 0.1
-snippet's prefix: $p
+prefix: $p
+---
+
+{{< meta >}}
+
 foo
 
 ## 説明
 foobar
+
+{{< src >}}
 "
             .to_string()),
-            "lib/snippet/precision/precision.cpp" => Ok("string precision(ll var_15, double var_x)
+            "content/snippet/precision/precision.cpp" => {
+                Ok("string precision(ll var_15, double var_x)
 {
     ostringstream cout;
     // begin
@@ -165,18 +178,25 @@ foobar
     return cout.str();
 }
 "
-            .to_string()),
-            "lib/struct/mint/README.md" => Ok("# ModInt
-
+                .to_string())
+            }
+            "content/struct/mint/_index.md" => Ok("---
+title: ModInt
 version: 1.0
-snippet's prefix: $mint
+prefix: $mint
+---
+
+{{< meta >}}
+
 mintです
 
 ## 説明
 mint最高
+
+{{< src >}}
 "
             .to_string()),
-            "lib/struct/mint/mint.hpp" => Ok("ll var_MOD = 1e9 + 7;
+            "content/struct/mint/mint.hpp" => Ok("ll var_MOD = 1e9 + 7;
 
 // begin
 struct mint

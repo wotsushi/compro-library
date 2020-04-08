@@ -1,7 +1,6 @@
-- package: snippet
+- package: core
   modules:
     - template
-    - precision
 - package: struct
   modules:
     - mint

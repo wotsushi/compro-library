@@ -1,0 +1,19 @@
+{{ $path := split (path.Dir .Position.Filename) "/" | last 3 }}
+{{ $path = $path | append (print (index $path 2) ".hpp") }}
+{{ $src := print (delimit (last 3 $path) "/") "/" }}
+
+{{ $isSnip := false }}
+{{ $snip := slice }}
+{{ range (split ($src | readFile) "\n") }}
+
+{{ if eq . "// begin" }}
+{{ $isSnip = true}}
+{{ else if eq . "// end" }}
+{{ $isSnip = false}}
+{{ else if $isSnip }}
+{{ $snip = $snip | append . }}
+{{ end }}
+
+{{ end }}
+
+{{ highlight (delimit $snip "\n") "cpp" "linenos=table"}}

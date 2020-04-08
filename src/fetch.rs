@@ -80,7 +80,7 @@ where
         "https://judgedat.u-aizu.ac.jp/testcases/{}/header",
         id
     ))?;
-    let dir = format!("lib/{}/{}/{}", package, module, id);
+    let dir = format!("content/{}/{}/{}", package, module, id);
     let mut inputs = vec![];
     let mut outputs = vec![];
     for header in header_info.headers {
@@ -166,25 +166,25 @@ fn test_generate_snippet() {
     let actual =
         fetch_testcase_from_aoj("DPL_5_D", "struct", "mint", get_header, get_testcase).unwrap();
     let expected = (
-        "lib/struct/mint/DPL_5_D/in".to_string(),
-        "lib/struct/mint/DPL_5_D/out".to_string(),
+        "content/struct/mint/DPL_5_D/in".to_string(),
+        "content/struct/mint/DPL_5_D/out".to_string(),
         vec![
             (
-                "lib/struct/mint/DPL_5_D/in/001".to_string(),
+                "content/struct/mint/DPL_5_D/in/001".to_string(),
                 "1 2\n3 4 5\n".to_string(),
             ),
             (
-                "lib/struct/mint/DPL_5_D/in/003".to_string(),
+                "content/struct/mint/DPL_5_D/in/003".to_string(),
                 "0\n".to_string(),
             ),
         ],
         vec![
             (
-                "lib/struct/mint/DPL_5_D/out/001".to_string(),
+                "content/struct/mint/DPL_5_D/out/001".to_string(),
                 "6\n7\n".to_string(),
             ),
             (
-                "lib/struct/mint/DPL_5_D/out/003".to_string(),
+                "content/struct/mint/DPL_5_D/out/003".to_string(),
                 "0\n".to_string(),
             ),
         ],

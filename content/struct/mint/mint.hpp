@@ -1,17 +1,12 @@
 #pragma once
-
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-
-ll var_MOD = 1e9 + 7;
+#include "../../core/template/template.hpp"
 
 // begin
 struct mint
 {
     ll a;
 
-    mint(ll x = 0) : a((x % var_MOD + var_MOD) % var_MOD) {}
+    mint(ll x = 0) : a((x % MOD + MOD) % MOD) {}
     mint pow(ll rhs)
     {
         ll exp = rhs;
@@ -35,9 +30,9 @@ struct mint
     mint &operator+=(ll rhs)
     {
         a += rhs;
-        if (a >= var_MOD)
+        if (a >= MOD)
         {
-            a -= var_MOD;
+            a -= MOD;
         }
         return *this;
     }
@@ -50,7 +45,7 @@ struct mint
     {
         if (a < rhs)
         {
-            a += var_MOD;
+            a += MOD;
         }
         a -= rhs;
         return *this;
@@ -64,9 +59,9 @@ struct mint
     {
         if (rhs < 0)
         {
-            rhs += var_MOD;
+            rhs += MOD;
         }
-        a = a * rhs % var_MOD;
+        a = a * rhs % MOD;
         return *this;
     }
     mint &operator*=(mint rhs)
@@ -76,7 +71,7 @@ struct mint
     }
     mint &operator/=(ll rhs)
     {
-        *this *= mint(rhs).pow(var_MOD - 2);
+        *this *= mint(rhs).pow(MOD - 2);
         return *this;
     }
     mint &operator/=(const mint rhs)

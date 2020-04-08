@@ -6,7 +6,7 @@ pub fn test(
         (Some(package), Some(module)) => test_module(package, module),
         (Some(package), None) => test_package(package),
         _ => {
-            for entry in std::fs::read_dir("lib").unwrap() {
+            for entry in std::fs::read_dir("content").unwrap() {
                 let entry = entry.unwrap();
                 if entry.file_type().unwrap().is_dir() {
                     test_package(entry.file_name().to_str().unwrap())?
@@ -81,7 +81,7 @@ fn compile(dir: &str, module: &str) -> Option<String> {
 }
 
 fn test_module(package: &str, module: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let dir = format!("lib/{}/{}", package, module);
+    let dir = format!("content/{}/{}", package, module);
 
     // handmade
     if let Some(err) = compile(&dir, &module) {
@@ -155,7 +155,7 @@ fn test_module(package: &str, module: &str) -> Result<(), Box<dyn std::error::Er
 }
 
 fn test_package(package: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let dir = format!("lib/{}", package);
+    let dir = format!("content/{}", package);
     for entry in std::fs::read_dir(&dir).unwrap() {
         let entry = entry.unwrap();
         if entry.file_type().unwrap().is_dir() {

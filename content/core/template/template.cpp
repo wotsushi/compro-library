@@ -1,31 +1,7 @@
-// begin
-#pragma region def
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-typedef vector<ll> vi;
-typedef pair<ll, ll> ii;
-#define REP(i, n) for (ll i = 0; i < (n); ++i)
-#define REP1(i, n) for (ll i = 1; i <= (n); ++i)
-#define OUT(x) cout << (x) << endl;
-#define OUTA(a) \
-    REP(i, (a).size()) { cout << (a[i]) << (i == (a).size() - 1 ? "\n" : " "); }
-#define ALL(a) (a).begin(), (a).end()
-#define SORT(a) sort(ALL(a))
-#define RSORT(a) \
-    SORT(a);     \
-    reverse(ALL(a))
-
-const ll INF = 1e18;
-const ll MOD = 1e9 + 7;
-#pragma endregion enddef
+#include "template.hpp"
 
 int main()
 {
-}
-// end
-
-int test = []() {
     // ll
     {
         ll actual = 12345678901;
@@ -81,6 +57,21 @@ int test = []() {
         string expected = "3 1 4\n";
         assert(actual == expected);
     }
+    // FOUT
+    {
+        ostringstream cout;
+        FOUT(3.14159265358979323846264338327950288419716939937510582097494459);
+        string actual = cout.str();
+        string expected = "3.141592653589793\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        FOUT(3.14);
+        string actual = cout.str();
+        string expected = "3.140000000000000\n";
+        assert(actual == expected);
+    }
     // ALL
     {
         vi a{1, 1, 2, 3, 5, 8};
@@ -111,4 +102,5 @@ int test = []() {
     }
 
     return 0;
-}();
+}
+// end

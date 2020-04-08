@@ -2,15 +2,15 @@
   "library": {
     "prefix": "lib",
     "body": [
-      "# ${1:Title}",
-      "",
+      "---",
+      "title: ${1:Title}",
       "version: ${2:1.0}",
-      "snippet's prefix: $${3:a}",
-      "${4:description}",
+      "prefix: ${3:$$a}",
+      "---",
       "",
-      "## 説明",
+      "{{< meta >}}",
       "",
-      ""
+      "{{< src >}}"
     ],
     "description": "library document template"
   }
