@@ -4,4 +4,5 @@
 - package: struct
   modules:
     - mint
+    - uft
     - segt
