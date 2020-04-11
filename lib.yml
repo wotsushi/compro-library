@@ -6,3 +6,6 @@
     - mint
     - uft
     - segt
+- package: math
+  modules:
+    - comb

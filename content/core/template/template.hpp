@@ -1,3 +1,5 @@
+#pragma once
+
 // begin
 #include <bits/stdc++.h>
 using namespace std;
