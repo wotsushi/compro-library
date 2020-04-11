@@ -1,3 +1,5 @@
+<h2> コード </h2>
+
 {{ $path := split (path.Dir .Position.Filename) "/" | last 3 }}
 {{ $path = $path | append (print (index $path 2) ".hpp") }}
 {{ $src := print (delimit (last 3 $path) "/") "/" }}

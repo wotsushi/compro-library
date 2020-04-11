@@ -6,6 +6,9 @@ theme = "hugo-theme-learn"
 defaultContentLanguage = "cpp"
 defaultContentLanguageInSubdir = true
 
+[params]
+themeVariant = "mine"
+
 [Languages]
 [Languages.cpp]
 title = "wotsushi's 競技プログラミングライブラリ"

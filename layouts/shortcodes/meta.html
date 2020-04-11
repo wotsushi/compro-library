@@ -1,4 +1,10 @@
-<ul>
-  <li> バージョン: {{ .Page.Params.version }} </li>
-  <li> snippet's prefix: {{ .Page.Params.prefix }} </li>
-</ul>
+<table class="meta">
+  <tr>
+    <td>バージョン</td>
+    <td>{{ .Page.Params.version }}</td>
+  </tr>
+  <tr>
+    <td>スニペットのprefix</td>
+    <td>{{ .Page.Params.prefix }}</td>
+  </tr>
+</table>
