@@ -6,12 +6,12 @@ struct mint
 {
     ll a;
 
-    mint(ll x = 0) : a((x % MOD + MOD) % MOD) {}
-    mint pow(ll rhs)
+    mint(ll a = 0) : a((a % MOD + MOD) % MOD) {}
+    mint pow(ll y)
     {
-        ll exp = rhs;
-        mint res = mint(1);
-        mint p = mint(a);
+        ll exp = y;
+        mint res = 1;
+        mint p = a;
         while (exp)
         {
             if (exp & 1)
@@ -23,60 +23,60 @@ struct mint
         }
         return res;
     }
-    mint pow(mint rhs)
+    mint pow(mint y)
     {
-        return pow(rhs.a);
+        return pow(y.a);
     }
-    mint &operator+=(ll rhs)
+    mint &operator+=(ll y)
     {
-        a += rhs;
+        a += y;
         if (a >= MOD)
         {
             a -= MOD;
         }
         return *this;
     }
-    mint &operator+=(mint rhs)
+    mint &operator+=(mint y)
     {
-        *this += rhs.a;
+        *this += y.a;
         return *this;
     }
-    mint &operator-=(ll rhs)
+    mint &operator-=(ll y)
     {
-        if (a < rhs)
+        if (a < y)
         {
             a += MOD;
         }
-        a -= rhs;
+        a -= y;
         return *this;
     }
-    mint &operator-=(mint rhs)
+    mint &operator-=(mint y)
     {
-        *this -= rhs.a;
+        *this -= y.a;
         return *this;
     }
-    mint &operator*=(ll rhs)
+    mint &operator*=(ll y)
     {
-        if (rhs < 0)
+        if (y < 0)
         {
-            rhs += MOD;
+            y += MOD;
         }
-        a = a * rhs % MOD;
+        a = a * y % MOD;
         return *this;
     }
-    mint &operator*=(mint rhs)
+    mint &operator*=(mint y)
     {
-        *this *= rhs.a;
+        *this *= y.a;
         return *this;
     }
-    mint &operator/=(ll rhs)
+    mint &operator/=(ll y)
     {
-        *this *= mint(rhs).pow(MOD - 2);
+        *this *= mint(y).pow(MOD - 2);
         return *this;
     }
-    mint &operator/=(const mint rhs)
+    mint &operator/=(const mint y)
     {
-        *this /= rhs.a;
+        *this /= y.a;
         return *this;
     }
     mint &operator++()
@@ -101,53 +101,53 @@ struct mint
     }
 };
 
-mint operator+(const mint &lhs, const mint &rhs)
+mint operator+(const mint &x, const mint &y)
 {
-    return mint(lhs.a) += rhs;
+    return mint(x.a) += y;
 }
-mint operator+(const mint &lhs, const ll &rhs)
+mint operator+(const mint &x, const ll &y)
 {
-    return mint(lhs.a) += rhs;
+    return mint(x.a) += y;
 }
-mint operator+(const ll &lhs, mint &rhs)
+mint operator+(const ll &x, mint &y)
 {
-    return mint(lhs) += rhs;
+    return mint(x) += y;
 }
-mint operator-(const mint &lhs, const mint &rhs)
+mint operator-(const mint &x, const mint &y)
 {
-    return mint(lhs.a) -= rhs;
+    return mint(x.a) -= y;
 }
-mint operator-(const mint &lhs, const ll &rhs)
+mint operator-(const mint &x, const ll &y)
 {
-    return mint(lhs.a) -= rhs;
+    return mint(x.a) -= y;
 }
-mint operator-(const ll &lhs, const mint &rhs)
+mint operator-(const ll &x, const mint &y)
 {
-    return mint(lhs) -= rhs;
+    return mint(x) -= y;
 }
-mint operator*(const mint &lhs, const mint &rhs)
+mint operator*(const mint &x, const mint &y)
 {
-    return mint(lhs.a) *= rhs;
+    return mint(x.a) *= y;
 }
-mint operator*(const mint &lhs, const ll &rhs)
+mint operator*(const mint &x, const ll &y)
 {
-    return mint(lhs.a) *= rhs;
+    return mint(x.a) *= y;
 }
-mint operator*(const ll &lhs, const mint &rhs)
+mint operator*(const ll &x, const mint &y)
 {
-    return mint(lhs) *= rhs;
+    return mint(x) *= y;
 }
-mint operator/(const mint &lhs, const mint &rhs)
+mint operator/(const mint &x, const mint &y)
 {
-    return mint(lhs.a) /= rhs;
+    return mint(x.a) /= y;
 }
-mint operator/(const mint &lhs, const ll &rhs)
+mint operator/(const mint &x, const ll &y)
 {
-    return mint(lhs.a) /= rhs;
+    return mint(x.a) /= y;
 }
-mint operator/(const ll &lhs, const mint &rhs)
+mint operator/(const ll &x, const mint &y)
 {
-    return mint(lhs) /= rhs;
+    return mint(x) /= y;
 }
 istream &operator>>(istream &is, mint &i)
 {
