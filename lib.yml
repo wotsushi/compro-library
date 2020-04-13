@@ -9,3 +9,6 @@
 - package: math
   modules:
     - comb
+- package: graph
+  modules:
+    - graph
