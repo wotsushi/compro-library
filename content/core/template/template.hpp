@@ -8,6 +8,7 @@ typedef vector<ll> vi;
 typedef pair<ll, ll> ii;
 #define REP(i, n) for (ll i = 0; i < (n); ++i)
 #define REP1(i, n) for (ll i = 1; i <= (n); ++i)
+#define FOR(i, a) for (auto &i : a)
 #define OUT(x) cout << (x) << endl;
 #define OUTA(a) \
     REP(i, (a).size()) { cout << (a[i]) << (i == (a).size() - 1 ? "\n" : " "); }

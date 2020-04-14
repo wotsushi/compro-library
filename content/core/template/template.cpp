@@ -40,6 +40,16 @@ int main()
         vector<ll> expected{1, 2, 3};
         assert(actual == expected);
     }
+    // FOR
+    {
+        vector<ll> actual(3);
+        FOR(e, actual)
+        {
+            e = 3;
+        }
+        vector<ll> expected{3, 3, 3};
+        assert(actual == expected);
+    }
     // OUT
     {
         ostringstream cout;
