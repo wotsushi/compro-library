@@ -58,11 +58,11 @@ int main()
         string expected = "1\n";
         assert(actual == expected);
     }
-    // OUTA
+    // JOUT
     {
         ostringstream cout;
         vi a{3, 1, 4};
-        OUTA(a);
+        JOUT(ALL(a), cout) << endl;
         string actual = cout.str();
         string expected = "3 1 4\n";
         assert(actual == expected);
@@ -80,6 +80,56 @@ int main()
         FOUT(3.14);
         string actual = cout.str();
         string expected = "3.140000000000000\n";
+        assert(actual == expected);
+    }
+    // DUMP
+    {
+        ostringstream cout;
+        ll x = 1;
+        DUMP(x);
+        string actual = cout.str();
+        string expected = "x = 1\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        ii p = ii(1, 2);
+        DUMP(p);
+        string actual = cout.str();
+        string expected = "p = (1, 2)\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        vi a = {1, 2, 3};
+        DUMP(a);
+        string actual = cout.str();
+        string expected = "a = [1, 2, 3]\n";
+        assert(actual == expected);
+    }
+    // DUMPA
+    {
+        ostringstream cout;
+        vector<vi> dp = {{1, 2}, {3, 4}};
+        DUMPA(dp);
+        string actual = cout.str();
+        string expected = "dp = {[1, 2], [3, 4]}\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        map<string, ll> m = {{"a", 1}, {"b", 2}};
+        DUMPA(m);
+        string actual = cout.str();
+        string expected = "m = {(a, 1), (b, 2)}\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        set<ll> s = {1, 2, 3};
+        DUMPA(s);
+        string actual = cout.str();
+        string expected = "s = {1, 2, 3}\n";
         assert(actual == expected);
     }
     // ALL
