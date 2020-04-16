@@ -12,6 +12,18 @@ typedef vector<string> vs;
 #define REP(i, n) for (ll i = 0; i < (n); ++i)
 #define REP1(i, n) for (ll i = 1; i <= (n); ++i)
 #define FOR(i, a) for (auto &i : a)
+#define IN(T, x) \
+    T x;         \
+    cin >> x;
+#define AIN(T, a, n) \
+    vector<T> a(n);  \
+    FOR(i, a)        \
+        cin >> i;
+#define A2IN(T1, a, T2, b, n) \
+    vector<T1> a(n);          \
+    vector<T2> b(n);          \
+    REP(i, n)                 \
+        cin >> a[i] >> b[i];
 #define OUT(x) cout << (x) << endl;
 #define FOUT(x) cout << fixed << setprecision(15) << (x) << endl;
 #define ALL(a) (a).begin(), (a).end()

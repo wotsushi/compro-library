@@ -68,6 +68,35 @@ int main()
         vector<ll> expected{3, 3, 3};
         assert(actual == expected);
     }
+    // IN
+    {
+        istringstream cin("1");
+        IN(ll, x);
+        ll actual = x;
+        ll expected = 1;
+        assert(actual == expected);
+    }
+    // AIN
+    {
+        istringstream cin("1 2 3");
+        ll N = 3;
+        AIN(ll, A, N);
+        vi actual = A;
+        vi expected = {1, 2, 3};
+        assert(actual == expected);
+    }
+    // A2IN
+    {
+        istringstream cin("1 a\n2 b\n3 c");
+        ll N = 3;
+        A2IN(ll, A, string, B, N);
+        vi actual1 = A;
+        vi expected1 = {1, 2, 3};
+        assert(actual1 == expected1);
+        vs actual2 = B;
+        vs expected2 = {"a", "b", "c"};
+        assert(actual2 == expected2);
+    }
     // OUT
     {
         ostringstream cout;
