@@ -18,12 +18,12 @@ typedef vector<string> vs;
 #define AIN(T, a, n) \
     vector<T> a(n);  \
     FOR(i, a)        \
-        cin >> i;
+    cin >> i;
 #define A2IN(T1, a, T2, b, n) \
     vector<T1> a(n);          \
     vector<T2> b(n);          \
     REP(i, n)                 \
-        cin >> a[i] >> b[i];
+    cin >> a[i] >> b[i];
 #define OUT(x) cout << (x) << endl;
 #define FOUT(x) cout << fixed << setprecision(15) << (x) << endl;
 #define ALL(a) (a).begin(), (a).end()
@@ -48,6 +48,19 @@ ostream &JOUT(T s, T e, ostream &os = cout, string sep = " ")
     {
         os << sep << *s;
         ++s;
+    }
+    return os;
+}
+
+ostream &YES(bool cond, string yes = "Yes", string no = "No", ostream &os = cout)
+{
+    if (cond)
+    {
+        os << yes << endl;
+    }
+    else
+    {
+        os << no << endl;
     }
     return os;
 }

@@ -129,6 +129,21 @@ int main()
         string expected = "3.140000000000000\n";
         assert(actual == expected);
     }
+    // YES
+    {
+        ostringstream cout;
+        YES(1 < 2, "Yes", "No", cout);
+        string actual = cout.str();
+        string expected = "Yes\n";
+        assert(actual == expected);
+    }
+    {
+        ostringstream cout;
+        YES(2 < 1, "Yes", "No", cout);
+        string actual = cout.str();
+        string expected = "No\n";
+        assert(actual == expected);
+    }
     // DUMP
     {
         ostringstream cout;
