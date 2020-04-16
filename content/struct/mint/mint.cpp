@@ -222,4 +222,10 @@ int main()
         string expected = "1\n";
         assert(actual == expected);
     }
+
+    {
+        vm actual = {1, 2, 3};
+        vector<mint> expected = {1, 2, 3};
+        assert(actual == expected);
+    }
 }

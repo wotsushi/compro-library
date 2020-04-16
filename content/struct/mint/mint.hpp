@@ -159,4 +159,6 @@ ostream &operator<<(ostream &os, const mint &i)
     os << i.a;
     return os;
 }
+
+typedef vector<mint> vm;
 // end

@@ -14,10 +14,28 @@ int main()
         vector<ll> expected = {3, 1, 4};
         assert(actual == expected);
     }
+    // vvi
+    {
+        vvi actual{{1, 2, 3}, {4, 5}};
+        vector<vi> expected = {{1, 2, 3}, {4, 5}};
+        assert(actual == expected);
+    }
     // ii
     {
         ii actual(1, 2);
         pair<ll, ll> expected = make_pair(1LL, 2LL);
+        assert(actual == expected);
+    }
+    // vii
+    {
+        vii actual{{1, 2}, {3, 4}};
+        vector<ii> expected = {{1, 2}, {3, 4}};
+        assert(actual == expected);
+    }
+    // vs
+    {
+        vs actual{"foo", "bar"};
+        vector<string> expected = {"foo", "bar"};
         assert(actual == expected);
     }
     // REP

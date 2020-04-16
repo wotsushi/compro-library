@@ -30,6 +30,15 @@ prefix: $t
 ### ii
 `pair<ll, ll>` 型（64bit整数のペア）の短縮名です。
 
+### vvi
+`vector<vi>` 型（64bit整数列の列）の短縮名です。
+
+### vii
+`vector<ii>` 型（64bit整数のペアの列）の短縮名です。
+
+### vs
+`vector<string>` 型（文字列の列）の短縮名です。
+
 ### REP
 0-indexedのforループのマクロです。
 

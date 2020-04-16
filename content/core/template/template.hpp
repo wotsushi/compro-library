@@ -5,7 +5,10 @@
 using namespace std;
 typedef long long ll;
 typedef vector<ll> vi;
+typedef vector<vi> vvi;
 typedef pair<ll, ll> ii;
+typedef vector<ii> vii;
+typedef vector<string> vs;
 #define REP(i, n) for (ll i = 0; i < (n); ++i)
 #define REP1(i, n) for (ll i = 1; i <= (n); ++i)
 #define FOR(i, a) for (auto &i : a)
