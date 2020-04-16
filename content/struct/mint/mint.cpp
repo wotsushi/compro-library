@@ -205,6 +205,37 @@ int main()
     }
 
     {
+        mint x = 1;
+        mint y = 1;
+        assert(x == y);
+    }
+    {
+        mint x = 1;
+        mint y = 2;
+        assert(x != y);
+    }
+    {
+        mint x = 1;
+        ll y = 1;
+        assert(x == y);
+    }
+    {
+        mint x = 1;
+        ll y = 2;
+        assert(x != y);
+    }
+    {
+        ll x = 1;
+        mint y = 1;
+        assert(x == y);
+    }
+    {
+        ll x = 1;
+        mint y = 2;
+        assert(x != y);
+    }
+
+    {
         mint x;
         string in = "1\n";
         istringstream is(in);

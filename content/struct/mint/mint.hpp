@@ -149,6 +149,30 @@ mint operator/(const ll &x, const mint &y)
 {
     return mint(x) /= y;
 }
+bool operator==(const mint &x, const mint &y)
+{
+    return x.a == y.a;
+}
+bool operator==(const mint &x, const ll &y)
+{
+    return x.a == y;
+}
+bool operator==(const ll &x, mint &y)
+{
+    return x == y.a;
+}
+bool operator!=(const mint &x, const mint &y)
+{
+    return !(x == y);
+}
+bool operator!=(const mint &x, const ll &y)
+{
+    return !(x == y);
+}
+bool operator!=(const ll &x, mint &y)
+{
+    return !(x == y);
+}
 istream &operator>>(istream &is, mint &i)
 {
     is >> i.a;
