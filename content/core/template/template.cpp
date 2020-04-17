@@ -68,6 +68,13 @@ int main()
         vector<ll> expected{3, 3, 3};
         assert(actual == expected);
     }
+    // CH
+    {
+        ll actual = 0;
+        CH(max, actual, 3LL);
+        ll expected = 3;
+        assert(actual == expected);
+    }
     // IN
     {
         istringstream cin("1");

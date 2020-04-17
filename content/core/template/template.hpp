@@ -12,6 +12,7 @@ typedef vector<string> vs;
 #define REP(i, n) for (ll i = 0; i < (n); ++i)
 #define REP1(i, n) for (ll i = 1; i <= (n); ++i)
 #define FOR(i, a) for (auto &i : a)
+#define CH(f, x, y) x = f(x, y)
 #define IN(T, x) \
     T x;         \
     cin >> x;
