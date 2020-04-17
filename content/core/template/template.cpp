@@ -2,6 +2,25 @@
 
 int main()
 {
+    // pq_asc
+    {
+        pq_asc<ll> q;
+        q.push(3);
+        q.push(1);
+        q.push(4);
+        ll actual1 = q.top();
+        q.pop();
+        ll expected1 = 1;
+        assert(actual1 == expected1);
+        ll actual2 = q.top();
+        q.pop();
+        ll expected2 = 3;
+        assert(actual2 == expected2);
+        ll actual3 = q.top();
+        q.pop();
+        ll expected3 = 4;
+        assert(actual3 == expected3);
+    }
     // ll
     {
         ll actual = 12345678901;

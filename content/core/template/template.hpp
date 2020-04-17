@@ -3,6 +3,8 @@
 // begin
 #include <bits/stdc++.h>
 using namespace std;
+template <typename T>
+using pq_asc = priority_queue<T, vector<T>, greater<T>>;
 typedef long long ll;
 typedef vector<ll> vi;
 typedef vector<vi> vvi;

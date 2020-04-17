@@ -1,6 +1,6 @@
 ---
 title: テンプレート
-version: 2.3
+version: 2.4
 prefix: $t
 ---
 
@@ -20,6 +20,9 @@ prefix: $t
   - `vector` は `[a, b, c]` のような文字列で出力されます
 
 ## API
+
+### pq_asc
+`priority_queue<T, vector<T>, greater<T>>` 型（昇順優先度付きキュー）の短縮名です。
 
 ### ll
 `long long` 型（64bit整数）の短縮名です。
