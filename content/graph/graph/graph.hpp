@@ -26,7 +26,7 @@ struct graph
         ++m;
     }
 
-    vector<ii> &operator[](int i)
+    vector<E> &operator[](int i)
     {
         return e[i];
     }
