@@ -68,6 +68,7 @@ impl std::error::Error for TestError {}
 fn compile(dir: &str, module: &str) -> Option<String> {
     let err = std::process::Command::new("g++-9")
         .arg(format!("{}/{}.cpp", dir, module))
+        .arg("-std=c++17")
         .arg("-o")
         .arg(format!("{}/{}.out", dir, module))
         .output()
