@@ -29,11 +29,7 @@ struct mint
     }
     mint &operator+=(ll y)
     {
-        a += y;
-        if (a >= MOD)
-        {
-            a -= MOD;
-        }
+        *this = a + y;
         return *this;
     }
     mint &operator+=(mint y)
@@ -43,11 +39,7 @@ struct mint
     }
     mint &operator-=(ll y)
     {
-        if (a < y)
-        {
-            a += MOD;
-        }
-        a -= y;
+        *this = a - y;
         return *this;
     }
     mint &operator-=(mint y)
@@ -57,11 +49,7 @@ struct mint
     }
     mint &operator*=(ll y)
     {
-        if (y < 0)
-        {
-            y += MOD;
-        }
-        a = a * y % MOD;
+        *this = a * y;
         return *this;
     }
     mint &operator*=(mint y)
