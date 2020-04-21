@@ -19,7 +19,7 @@ $n + 1$ 個の互いに素な集合 $\\{0\\}, \\{1\\}, \ldots, \\{n\\}$ に対�
 （$\alpha(x)$ は定数関数とみなして差し支えないほど緩やかに増加する関数です）
 
 ### 状態空間
-- $n' \in \mathbb{N}$
+- $n' \in \mathbb{Z}_{\geq 0}$
 - $\mathcal{S'}$: 以下を満たす集合族
   - $\bigcup_{S \in \mathcal{S'}} S = \\{0, 1, \ldots, n'\\}$
   - $\forall X, Y \in \mathcal{S'}, X \neq Y \Rightarrow X \cap Y = \emptyset$
@@ -32,7 +32,7 @@ $\\{1, 2, 3\\}$, $\\{4, 5\\}$, $\\{6\\}$ を管理している状態に対応し
 $n + 1$ 個の互いに素な動的集合を初期化します。
 
 #### 引数
-$n \in \mathbb{N}$
+$n \in \mathbb{Z}_{\geq 0}$
 
 #### 初期状態
 - $n' = n$
@@ -45,8 +45,8 @@ $O(n)$
 指定した2つの要素が属す集合を合併します。合併済みの場合は何もしません。
 
 #### 引数
-- $i \in \mathbb{N}_{n' + 1}$
-- $j \in \mathbb{N}_{n' + 1}$
+- $i \in \\{0, 1, \ldots, n' + 1\\}$
+- $j \in \\{0, 1, \ldots, n' + 1\\}$
 
 #### 戻り値
 なし
@@ -62,8 +62,8 @@ $O(\alpha(n'))$
 指定した2つの要素が同一の集合に属すか判定します。
 
 #### 引数
-- $i \in \mathbb{N}_{n' + 1}$
-- $j \in \mathbb{N}_{n' + 1}$
+- $i \in \\{0, 1, \ldots, n' + 1\\}$
+- $j \in \\{0, 1, \ldots, n' + 1\\}$
 
 #### 戻り値
 $\exists S \in \mathcal{S'}, i, j \in S$
@@ -78,7 +78,7 @@ $O(\alpha(n'))$
 指定した要素が属す集合の要素数を返します。
 
 #### 引数
-$i \in \mathbb{N}_{n' + 1}$
+$i \in \\{0, 1, \ldots, n' + 1\\}$
 
 #### 戻り値
 $|X|$ s.t. $i \in X \in \mathcal{S'}$

@@ -24,7 +24,7 @@ prefix: $m
 以降、$MOD$ を定数とみなして計算量を表記します。
 
 ### 状態空間
-$a' \in \mathbb{N}_{MOD}$
+$a' \in \\{0, 1, \ldots, MOD - 1\\}$
 
 $a'$ は $MOD$ を法とした整数です。
 
@@ -50,7 +50,7 @@ $O(1)$
 べき乗した値の $MOD$ による剰余を返します。
 
 #### 引数
-$b \in \mathbb{N}$
+$b \in \mathbb{Z}_{\geq 0}$
 
 #### 戻り値
 $a^b \mod MOD$

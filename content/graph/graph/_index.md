@@ -22,7 +22,7 @@ prefix: $g
 - $m' \in \mathbb{Z_{\geq 0}}$
 - $w' \in \\{T, F\\}$
 - $d' \in \\{T, F\\}$
-- $E' = (E_{0}', E_{1}', \ldots, E_{n'}') \in \mathcal{A}(\\{0, 1, \ldots, n'\\} \times W)^{n' + 1}$
+- $E' = (E_{0}', E_{1}', \ldots, E_{n'}') \in ((\\{0, 1, \ldots, n'\\} \times W)^{*})^{n' + 1}$
 
 $n'$ は頂点の数、$m'$ は辺の数であり、$(w', d') = (F, F)$ ならば無向グラフを、$(w', d') = (T, F)$ ならば重み付き無向グラフを、
 $(w', d') = (F, T)$ ならば有向グラフを、$(w', d') = (T, T)$ ならば重み付き有向グラフを表します。
@@ -48,7 +48,7 @@ $E_{i}'$ は頂点 $i$ を始点とする辺について、終点と重みの組
 - $m' = m$
 - $w' = w$
 - $d' = d$
-- $E' = ()$
+- $E' = ((), \ldots, ())$
 
 #### 計算量
 $O(1)$
@@ -68,10 +68,10 @@ $O(1)$
 #### 状態変化
 - $m' \leftarrow m' + 1$
 - $d' = T$ の場合
-  - $E_{i}' \leftarrow E_{i}' \oplus (j, w)$
+  - $E_{i}' \leftarrow (E_{i}', (j, w))$
 - $d' = F$ の場合
-  - $E_{i}' \leftarrow E_{i}' \oplus (j, w)$
-  - $E_{j}' \leftarrow E_{j}' \oplus (i, w)$
+  - $E_{i}' \leftarrow (E_{i}', (j, w))$
+  - $E_{j}' \leftarrow (E_{j}', (i, w))$
 
 #### 計算量
 $O(1)$

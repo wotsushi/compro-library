@@ -21,8 +21,8 @@ prefix: $tree
 - $n' \in \mathbb{Z_{\geq 0}}$
 - $r' \in \\{0, 1, \\ldots, n'\\}$
 - $p' = (p_{0}', p_{1}', \ldots, p_{n'}') \in (\\{-2, -1, 0, 1, \\ldots, n'\\} \times W)^{n' + 1}$
-- $c' = (c_{0}', c_{1}', \ldots, c_{n'}') \in \mathcal{A}(\\{0, 1, \\ldots, n'\\} \times W)^{n' + 1}$
-- $d' = (d_{0}', c_{1}', \ldots, c_{n'}') \in \mathcal{A}(\\{0, 1, \\ldots, n'\\} \times W)^{n' + 1}$
+- $c' = (c_{0}', c_{1}', \ldots, c_{n'}') \in ((\\{0, 1, \\ldots, n'\\} \times W)^{*})^{n' + 1}$
+- $d' = (d_{0}', c_{1}', \ldots, c_{n'}') \in (\mathbb{Z}_{\geq 0})^{n' + 1}$
 
 $n'$ は頂点の数を表します。
 $r'$ は根である頂点を表します。

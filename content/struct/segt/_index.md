@@ -24,13 +24,13 @@ $a[1]$ が根であり、$a[i]$ の親は $a[\lfloor i / 2 \rfloor]$, 左の子�
 以降、指定された型を $T$ とします。
 
 ### 状態空間
-- $n' \in \mathbb{N}^{+}$
+- $n' \in \mathbb{Z}_{\geq 0}$
 - $f'$: 以下を満たす $T^2 \rightarrow T$
   - $\forall x, y, z \in T, f(f(x, y), z) = f(x, f(y, z))$
   - $\exists e \in T, \forall x \in T, f(x, e) = f(e, x) = x$
 - $e'$: 以下を満たす $e' \in T$
   - $\forall x \in T, f(x, e') = f(e', x) = x$
-- $A' = (A_{1}', \ldots, A_{n'}') \in T^{n'}$
+- $A' = (A_{0}', \ldots, A_{n' - 1}') \in T^{n'}$
 
 $f'$ は区間に適用する演算に対応します。
 $A'$ は配列の各要素の状態に対応します。この配列は0-indexedです。
@@ -41,7 +41,7 @@ $A'$ は配列の各要素の状態に対応します。この配列は0-indexed
 セグメント木の各要素は単位元で初期化されます。
 
 #### 引数
-- $n \in \mathbb{N}^{+}$
+- $n \in \mathbb{Z}_{\geq 0}$
 - $e$: 以下を満たす $e \in T$
   - $\forall x \in T, f(x, e) = f(e, x) = x$
 - $f$: 以下を満たす $T^2 \rightarrow T$
@@ -52,7 +52,7 @@ $A'$ は配列の各要素の状態に対応します。この配列は0-indexed
 - $n' = n$
 - $f' = f$
 - $e' = e$
-- $A' = (A_{0}', \ldots, A_{n' - 1}') = (e, \ldots, e)$
+- $A' = (e, \ldots, e)$
 
 #### 計算量
 $O(n)$
@@ -61,7 +61,7 @@ $O(n)$
 指定した要素の値を更新します。指定するインデックスは0-indexedです。
 
 #### 引数
-- $i \in \mathbb{N}_{n'}$
+- $i \in \\{0, 1, \ldots, n' - 1\\}$
 - $x \in T$
 
 #### 戻り値
@@ -77,8 +77,8 @@ $O(\log{n'})$
 指定した区間に対する演算結果を返します。区間は左閉右開区間であり、インデックスは0-indexedです。
 
 #### 引数
-- $i \in \mathbb{N}_{n'}$
-- $j \in \mathbb{N}^{+}_{n'}$
+- $i \in \\{0, 1, \ldots, n' - 1\\}$
+- $j \in \\{0, 1, \ldots, n'\\}$
 
 #### 戻り値
 $f(f( \ldots f(f(A_{i}', A_{i + 1}'), A_{i + 2}') \ldots), A_{j - 1}')$
