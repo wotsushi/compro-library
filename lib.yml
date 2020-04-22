@@ -1,6 +1,7 @@
 - package: core
   modules:
     - template
+    - grid
 - package: struct
   modules:
     - mint
