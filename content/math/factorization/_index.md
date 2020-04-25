@@ -26,7 +26,7 @@ $x \in \mathbb{Z}$
 #### 戻り値
 $
 \begin{cases}
-\\{(p_1, a_1), \ldots, (p_n, a_n) \\} & n \geq 2 \\\\
+\\{(p_1, a_1), \ldots, (p_n, a_n) \\} & x \geq 2 \\\\
 \emptyset & otherwise
 \end{cases}
 $
