@@ -69,3 +69,5 @@ $O(\log b)$
 `vector<mint>` 型の短縮名です。
 
 {{< src >}}
+
+{{< example >}}

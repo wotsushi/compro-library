@@ -90,3 +90,5 @@ $f(f( \ldots f(f(A_{i}', A_{i + 1}'), A_{i + 2}') \ldots), A_{j - 1}')$
 $O(\log{n'})$
 
 {{< src >}}
+
+{{< example >}}

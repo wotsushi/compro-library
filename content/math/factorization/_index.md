@@ -40,3 +40,5 @@ s.t.
 $O(\sqrt{x})$
 
 {{< src >}}
+
+{{< example >}}

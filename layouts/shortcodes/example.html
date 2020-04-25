@@ -1,0 +1,21 @@
+<h2> 使用例 </h2>
+
+{{ $path := split (path.Dir .Position.Filename) "/" | last 3 }}
+{{ $path = $path | append (print (index $path 2) ".cpp") }}
+{{ $src := print (delimit (last 3 $path) "/") "/" }}
+
+{{ $isExample := false }}
+{{ $example := slice }}
+{{ range (split ($src | readFile) "\n") }}
+
+{{ if eq . "// begin" }}
+{{ $isExample = true}}
+{{ else if eq . "// end" }}
+{{ $isExample = false}}
+{{ else if $isExample }}
+{{ $example = $example | append . }}
+{{ end }}
+
+{{ end }}
+
+{{ highlight (delimit $example "\n") "cpp" "linenos=table"}}

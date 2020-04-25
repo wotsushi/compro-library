@@ -1,5 +1,6 @@
 #include "graph.hpp"
 
+// begin
 int main()
 {
     // 無向グラフ
@@ -95,3 +96,4 @@ int main()
         assert(G[4] == vector<ii>({ii(1, 6)}));
     }
 }
+// end

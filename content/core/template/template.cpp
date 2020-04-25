@@ -1,5 +1,6 @@
 #include "template.hpp"
 
+// begin
 int main()
 {
     // pq_asc
@@ -59,32 +60,32 @@ int main()
     }
     // REP
     {
-        vector<ll> actual;
+        vi actual;
         REP(i, 3)
         {
             actual.push_back(i);
         }
-        vector<ll> expected{0, 1, 2};
+        vi expected{0, 1, 2};
         assert(actual == expected);
     }
     // REP1
     {
-        vector<ll> actual;
+        vi actual;
         REP1(i, 3)
         {
             actual.push_back(i);
         }
-        vector<ll> expected{1, 2, 3};
+        vi expected{1, 2, 3};
         assert(actual == expected);
     }
     // FOR
     {
-        vector<ll> actual(3);
+        vi actual(3);
         FOR(e, actual)
         {
             e = 3;
         }
-        vector<ll> expected{3, 3, 3};
+        vi expected{3, 3, 3};
         assert(actual == expected);
     }
     // CH
@@ -245,7 +246,7 @@ int main()
     {
         assert(INF > 1e15);
         ll x = INF;
-        // オーバーフローしないかテスト
+        // 2INFはオーバーフローはしない
         assert(2 * x > INF);
     }
 
