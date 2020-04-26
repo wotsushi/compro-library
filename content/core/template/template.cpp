@@ -136,7 +136,7 @@ int main()
     {
         ostringstream cout;
         vi a{3, 1, 4};
-        JOUT(ALL(a), cout) << endl;
+        JOUT(ALL(a), " ", cout) << endl;
         string actual = cout.str();
         string expected = "3 1 4\n";
         assert(actual == expected);

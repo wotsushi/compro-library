@@ -37,10 +37,10 @@ typedef vector<string> vs;
 #define DUMP(x) cout << #x << " = " << (x) << endl;
 #define DUMPA(a)          \
     cout << #a << " = {"; \
-    JOUT(ALL(a), cout, ", ") << "}" << endl;
+    JOUT(ALL(a), ", ", cout) << "}" << endl;
 
 template <typename T>
-ostream &JOUT(T s, T e, ostream &os = cout, string sep = " ")
+ostream &JOUT(T s, T e, string sep = " ", ostream &os = cout)
 {
     if (s != e)
     {
@@ -79,7 +79,7 @@ template <typename T>
 ostream &operator<<(ostream &os, const vector<T> &v)
 {
     os << '[';
-    JOUT(ALL(v), os, ", ") << ']';
+    JOUT(ALL(v), ", ", os) << ']';
     return os;
 }
 

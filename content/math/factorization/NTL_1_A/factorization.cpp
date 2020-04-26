@@ -13,5 +13,5 @@ int main()
     }
     SORT(ans);
     cout << n << ": ";
-    JOUT(ALL(ans), cout, " ") << endl;
+    JOUT(ALL(ans), " ", cout) << endl;
 }
