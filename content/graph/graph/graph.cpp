@@ -5,7 +5,7 @@ int main()
 {
     // 無向グラフ
     {
-        graph<ll> G(4, 4);
+        graph<ll> G(4);
         G.add(1, 2);
         G.add(2, 3);
         G.add(3, 4);
@@ -17,7 +17,7 @@ int main()
     }
     // 重み付き無向グラフ
     {
-        graph<ll> G(4, 4, true);
+        graph<ll> G(4, 0, true);
         G.add(1, 2, 9);
         G.add(2, 3, 8);
         G.add(3, 4, 7);
@@ -29,7 +29,7 @@ int main()
     }
     // 有向グラフ
     {
-        graph<ll> G(4, 4, false, true);
+        graph<ll> G(4, 0, false, true);
         G.add(1, 2);
         G.add(2, 3);
         G.add(3, 4);
@@ -41,7 +41,7 @@ int main()
     }
     // 重み付き有向グラフ
     {
-        graph<ll> G(4, 4, true, true);
+        graph<ll> G(4, 0, true, true);
         G.add(1, 2, 9);
         G.add(2, 3, 8);
         G.add(3, 4, 7);

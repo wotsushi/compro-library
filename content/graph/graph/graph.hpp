@@ -6,12 +6,13 @@ template <typename W>
 struct graph
 {
     using E = pair<ll, W>;
+    ll n;
     ll m;
     bool weighted;
     bool directed;
     vector<vector<E>> e;
 
-    graph(ll n, ll m, bool weighted = false, bool directed = false) : m(m), directed(directed), weighted(weighted)
+    graph(ll n, ll m = 0, bool weighted = false, bool directed = false) : n(n), m(m), directed(directed), weighted(weighted)
     {
         e.assign(n + 1, vector<E>());
     }
@@ -27,28 +28,29 @@ struct graph
     }
 
     vector<E> &operator[](int i)
+
     {
         return e[i];
     }
 };
 
 template <typename W>
-istream &operator>>(istream &is, graph<W> &g)
+istream &operator>>(istream &is, graph<W> &G)
 {
-    REP(i, g.m)
+    REP(i, G.m)
     {
         ll from, to, w;
         is >> from >> to;
-        if (g.weighted)
+        if (G.weighted)
         {
             is >> w;
-            g.add(from, to, w);
+            G.add(from, to, w);
         }
         else
         {
-            g.add(from, to);
+            G.add(from, to);
         }
-        --g.m;
+        --G.m;
     }
     return is;
 }

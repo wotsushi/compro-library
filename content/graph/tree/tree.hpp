@@ -11,11 +11,11 @@ struct tree
     vector<vector<E>> c;
     vi d;
 
-    tree(graph<W> g, ll r = 1) : r(r)
+    tree(graph<W> &G, ll r = 1) : r(r)
     {
-        p.assign(g.e.size(), E(-2, 0));
-        c.assign(g.e.size(), vector<E>());
-        d.assign(g.e.size(), 0);
+        p.assign(G.n + 1, E(-2, 0));
+        c.assign(G.n + 1, vector<E>());
+        d.assign(G.n + 1, 0);
         queue<ll> q;
         p[r] = E(-1, 0);
         q.push(r);
@@ -23,7 +23,7 @@ struct tree
         {
             ll i = q.front();
             q.pop();
-            for (auto [j, w] : g[i])
+            for (auto [j, w] : G[i])
             {
                 if (p[j].first == -2)
                 {
