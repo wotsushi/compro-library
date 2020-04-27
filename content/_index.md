@@ -22,6 +22,7 @@ title: "wotsushi's 競技プログラミングライブラリ"
 - $\Sigma$: アルファベット
 - $A^{*}$: $\bigcup_{k = 0}^{\infty} A^k$ （$A$ は集合）
 - $\Omega$: 全体集合
+- $\infty$: 十分に大きい整数[INF]({{< ref "core/template/_index.md#inf" >}})
 - $Id$: 識別子の集合
 - $Ref$: 参照の集合
 - $*r$: $r$ の参照先の値（$r$ は参照）

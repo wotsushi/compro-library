@@ -16,3 +16,4 @@
   modules:
     - graph
     - tree
+    - dijkstra
