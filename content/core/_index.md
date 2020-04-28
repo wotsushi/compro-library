@@ -7,3 +7,4 @@ title: "Core"
 ## モジュール
 - [テンプレート]({{< ref "core/template/_index.md" >}}): 型定義・入出力マクロなどとりあえず最初に貼り付けるコードです
 - [グリッド]({{< ref "core/grid/_index.md" >}}): 2次元グリッドのイテレートを補助する関数群です
+- [座標圧縮]({{< ref "core/compress/_index.md" >}}): 整数列を座標圧縮する関数です

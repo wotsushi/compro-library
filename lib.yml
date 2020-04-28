@@ -2,6 +2,7 @@
   modules:
     - template
     - grid
+    - compress
 - package: struct
   modules:
     - mint
