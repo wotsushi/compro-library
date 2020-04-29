@@ -6,12 +6,13 @@ template <typename W>
 struct tree
 {
     using E = pair<ll, W>;
+    ll n;
     ll r;
     vector<E> p;
     vector<vector<E>> c;
     vi d;
 
-    tree(graph<W> &G, ll r = 1) : r(r)
+    tree(graph<W> &G, ll r = 1) : n(G.n), r(r)
     {
         p.assign(G.n + 1, E(-2, 0));
         c.assign(G.n + 1, vector<E>());
