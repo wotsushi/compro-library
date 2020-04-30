@@ -2,6 +2,7 @@
 title: セグメント木
 version: 1.0
 prefix: $segt
+weight: 203
 ---
 
 {{< meta >}}

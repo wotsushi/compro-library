@@ -2,6 +2,7 @@
 title: テンプレート
 version: 2.4
 prefix: $t
+weight: 101
 ---
 
 {{< meta >}}

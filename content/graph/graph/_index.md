@@ -2,6 +2,7 @@
 title: グラフ
 version: 0.2
 prefix: $g
+weight: 401
 ---
 
 {{< meta >}}

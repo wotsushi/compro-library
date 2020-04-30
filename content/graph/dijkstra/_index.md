@@ -2,6 +2,7 @@
 title: ダイクストラ法
 version: 1.0
 prefix: $dijkstra
+weight: 403
 ---
 
 {{< meta >}}

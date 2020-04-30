@@ -1,5 +1,6 @@
 ---
 title: "wotsushi's 競技プログラミングライブラリ"
+weight: 1
 ---
 
 # wotsushi's 競技プログラミングライブラリ

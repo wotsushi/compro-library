@@ -2,6 +2,7 @@
 title: 座標圧縮
 version: 0.1
 prefix: $compress
+weight: 103
 ---
 
 {{< meta >}}

@@ -2,6 +2,7 @@
 title: UnionFind木
 version: 1.0
 prefix: $uft
+weight: 202
 ---
 
 {{< meta >}}

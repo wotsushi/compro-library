@@ -37,7 +37,7 @@ fn generate_snippet(
                         ))
                         .unwrap();
                         let meta = regex::Regex::new(
-                            r"version: (?P<version>\d+\.\d+)\nprefix: (?P<prefix>\$.*)\n---\n\n\{\{< meta >\}\}\n\n(?P<description>.*)",
+                            r"version: (?P<version>\d+\.\d+)\nprefix: (?P<prefix>\$.*)\nweight: \d*\n---\n\n\{\{< meta >\}\}\n\n(?P<description>.*)",
                         )
                         .unwrap()
                         .captures(&doc)
@@ -124,6 +124,7 @@ fn test_generate_snippet() {
 title: テンプレート
 version: 1.0
 prefix: $t
+weight: 100
 ---
 
 {{< meta >}}
@@ -156,6 +157,7 @@ int test = []() {
 title: 浮動小数点数の標準出力
 version: 0.1
 prefix: $p
+weight: 101
 ---
 
 {{< meta >}}
@@ -184,6 +186,7 @@ foobar
 title: ModInt
 version: 1.0
 prefix: $mint
+weight: 201
 ---
 
 {{< meta >}}

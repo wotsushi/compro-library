@@ -2,6 +2,7 @@
 title: 数え上げ
 version: 0.1
 prefix: $comb
+weight: 301
 ---
 
 {{< meta >}}

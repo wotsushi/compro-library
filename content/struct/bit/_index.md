@@ -2,6 +2,7 @@
 title: Bit Indexed Tree
 version: 1.0
 prefix: $bit
+weight: 204
 ---
 
 {{< meta >}}

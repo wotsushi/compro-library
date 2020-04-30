@@ -2,6 +2,7 @@
 title: 素因数分解
 version: 1.0
 prefix: $pfact
+weight: 302
 ---
 
 {{< meta >}}
