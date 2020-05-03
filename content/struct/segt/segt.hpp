@@ -11,6 +11,8 @@ struct segt
     T e;
     F f;
 
+    segt() {}
+
     segt(ll n, T e, F f) : e(e), f(f)
     {
         m = 1;

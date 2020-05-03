@@ -10,6 +10,8 @@ struct rollinghash
     vvi h;
     vvi p;
 
+    rollinghash() {}
+
     rollinghash(const string &s)
     {
         ll n = s.size();

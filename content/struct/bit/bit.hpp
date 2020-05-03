@@ -8,6 +8,8 @@ struct bit
     ll n;
     vector<T> a;
 
+    bit() {}
+
     bit(ll n) : n(n)
     {
         a.assign(n + 1, 0);

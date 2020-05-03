@@ -8,6 +8,8 @@ struct lca
     vi d;
     ll m;
 
+    lca() {}
+
     template <typename W>
     lca(tree<W> &T)
     {

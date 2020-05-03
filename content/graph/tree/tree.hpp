@@ -12,6 +12,8 @@ struct tree
     vector<vector<E>> c;
     vi d;
 
+    tree() {}
+
     tree(graph<W> &G, ll r = 1) : n(G.n), r(r)
     {
         p.assign(G.n + 1, E(-2, 0));

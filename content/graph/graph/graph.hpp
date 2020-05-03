@@ -12,6 +12,8 @@ struct graph
     bool directed;
     vector<vector<E>> e;
 
+    graph() {}
+
     graph(ll n, ll m = 0, bool weighted = false, bool directed = false) : n(n), m(m), directed(directed), weighted(weighted)
     {
         e.assign(n + 1, vector<E>());

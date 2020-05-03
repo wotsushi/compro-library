@@ -7,6 +7,8 @@ struct uft
     vi p;
     vi s;
 
+    uft() {}
+
     uft(ll n)
     {
         p.assign(n + 1, 0);
