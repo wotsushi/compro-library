@@ -22,3 +22,4 @@
 - package: string
   modules:
     - rollinghash
+    - suffixarray
