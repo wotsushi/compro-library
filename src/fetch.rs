@@ -15,7 +15,7 @@ pub fn fetch_and_write_testcase_from_aoj(
             reqwest::Result::Err(e) => Err(Box::new(e)),
         },
         |url| match reqwest::blocking::get(url) {
-            reqwest::Result::Ok(response) => match response.json() {
+            reqwest::Result::Ok(response) => match response.text() {
                 reqwest::Result::Ok(testcase) => Ok(testcase),
                 reqwest::Result::Err(e) => Err(Box::new(e)),
             },
@@ -51,17 +51,6 @@ struct AOJHeaderInfo {
     headers: Vec<AOJHeader>,
 }
 
-#[derive(serde::Deserialize, Debug)]
-struct AOJTestCase {
-    #[serde(rename(deserialize = "problemId"))]
-    problem_id: String,
-    serial: i64,
-    #[serde(rename(deserialize = "in"))]
-    input: String,
-    #[serde(rename(deserialize = "out"))]
-    output: String,
-}
-
 fn fetch_testcase_from_aoj<F, G>(
     id: &str,
     package: &str,
@@ -74,7 +63,7 @@ fn fetch_testcase_from_aoj<F, G>(
 >
 where
     F: Fn(&str) -> Result<AOJHeaderInfo, Box<dyn std::error::Error>>,
-    G: Fn(&str) -> Result<AOJTestCase, Box<dyn std::error::Error>>,
+    G: Fn(&str) -> Result<String, Box<dyn std::error::Error>>,
 {
     let header_info = get_header(&format!(
         "https://judgedat.u-aizu.ac.jp/testcases/{}/header",
@@ -84,14 +73,20 @@ where
     let mut inputs = vec![];
     let mut outputs = vec![];
     for header in header_info.headers {
-        let testcase = get_testcase(&format!(
-            "https://judgedat.u-aizu.ac.jp/testcases/{}/{}",
-            id, header.serial
-        ))?;
-        if !testcase.input.contains("terminated") && !testcase.output.contains("terminated") {
-            inputs.push((format!("{}/in/{:03}", dir, header.serial), testcase.input));
-            outputs.push((format!("{}/out/{:03}", dir, header.serial), testcase.output));
-        }
+        inputs.push((
+            format!("{}/in/{:03}", dir, header.serial),
+            get_testcase(&format!(
+                "https://judgedat.u-aizu.ac.jp/testcases/{}/{}/in",
+                id, header.serial
+            ))?,
+        ));
+        outputs.push((
+            format!("{}/out/{:03}", dir, header.serial),
+            get_testcase(&format!(
+                "https://judgedat.u-aizu.ac.jp/testcases/{}/{}/out",
+                id, header.serial
+            ))?,
+        ));
     }
     Ok((
         format!("{}/in", dir),
@@ -117,13 +112,6 @@ fn test_generate_snippet() {
                     },
                     AOJHeader {
                         serial: 2,
-                        name: "00_small__01.in".to_string(),
-                        input_size: 113,
-                        output_size: 12,
-                        score: -1,
-                    },
-                    AOJHeader {
-                        serial: 3,
                         name: "01_rand__00.in".to_string(),
                         input_size: 186,
                         output_size: 28,
@@ -137,26 +125,14 @@ fn test_generate_snippet() {
             )))),
         }
     }
-    fn get_testcase(url: &str) -> Result<AOJTestCase, Box<dyn std::error::Error>> {
+    fn get_testcase(url: &str) -> Result<String, Box<dyn std::error::Error>> {
         match url {
-            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/1" => Ok(AOJTestCase {
-                problem_id: "DPL_5_D".to_string(),
-                serial: 1,
-                input: "1 2\n3 4 5\n".to_string(),
-                output: "6\n7\n".to_string(),
-            }),
-            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/2" => Ok(AOJTestCase {
-                problem_id: "DPL_5_D".to_string(),
-                serial: 2,
-                input: "1 2\n3 4 5\n..... (terminated because of the limitation)\n".to_string(),
-                output: "0\n".to_string(),
-            }),
-            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/3" => Ok(AOJTestCase {
-                problem_id: "DPL_5_D".to_string(),
-                serial: 3,
-                input: "0\n".to_string(),
-                output: "0\n".to_string(),
-            }),
+            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/1/in" => {
+                Ok("1 2\n3 4 5\n".to_string())
+            }
+            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/1/out" => Ok("6\n7\n".to_string()),
+            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/2/in" => Ok("0\n".to_string()),
+            "https://judgedat.u-aizu.ac.jp/testcases/DPL_5_D/2/out" => Ok("0\n".to_string()),
             _ => Err(Box::new(simple_error::SimpleError::new(format!(
                 "invalid URL: {}",
                 url
@@ -174,7 +150,7 @@ fn test_generate_snippet() {
                 "1 2\n3 4 5\n".to_string(),
             ),
             (
-                "content/struct/mint/DPL_5_D/in/003".to_string(),
+                "content/struct/mint/DPL_5_D/in/002".to_string(),
                 "0\n".to_string(),
             ),
         ],
@@ -184,7 +160,7 @@ fn test_generate_snippet() {
                 "6\n7\n".to_string(),
             ),
             (
-                "content/struct/mint/DPL_5_D/out/003".to_string(),
+                "content/struct/mint/DPL_5_D/out/002".to_string(),
                 "0\n".to_string(),
             ),
         ],
