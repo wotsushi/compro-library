@@ -13,6 +13,7 @@
   modules:
     - comb
     - factorization
+    - matrix
 - package: graph
   modules:
     - graph
