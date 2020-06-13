@@ -5,7 +5,7 @@
 template <typename W>
 vi dijkstra(graph<W> &G, ll s)
 {
-    using E = pair<ll, W>;
+    using E = pair<W, ll>;
     vi dp(G.n + 1, INF);
     pq_asc<E> q;
     q.push({0, s});
