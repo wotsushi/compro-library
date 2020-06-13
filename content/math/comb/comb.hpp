@@ -30,7 +30,11 @@ struct comb
 
     mint c(ll n, ll r)
     {
-        return p(n, r) * f_inv[r];
+        if (n >= r)
+        {
+            return p(n, r) * f_inv[r];
+        }
+        return 0;
     }
 
     mint h(ll n, ll r)
