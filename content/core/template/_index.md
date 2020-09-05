@@ -1,6 +1,6 @@
 ---
 title: テンプレート
-version: 2.4
+version: 3.0
 prefix: $t
 weight: 101
 ---
@@ -71,21 +71,21 @@ $10^9 + 7$
 
 ## マクロ
 
-### REP
+### rep
 0-indexedのforループです。
 
 #### 引数
 - $i \in Id$
 - $n \in \mathbb{Z}$
 
-### REP1
+### rep1
 1-indexedのforループです。
 
 #### 引数
 - $i \in Id$
 - $n \in \mathbb{Z}$
 
-### FOR
+### each
 for eachループです。
 
 #### 引数
