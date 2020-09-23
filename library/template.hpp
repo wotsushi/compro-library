@@ -1,6 +1,5 @@
 #pragma once
 
-// begin
 #define G3(_1, _2, _3, F, ...) F
 #define G4(_1, _2, _3, _4, F, ...) F
 #define G5(_1, _2, _3, _4, _5, F, ...) F
@@ -47,7 +46,7 @@ using pq = priority_queue<T, vector<T>, greater<T>>;
 #define RREP1(i, n) for (ll i = (n); i >= 1; --i)
 #define RREPI(i, j, n) for (ll i = (n); i >= (j); --i)
 #define rrepi(...) G3(__VA_ARGS__, RREPI, RREP1)(__VA_ARGS__)
-#define each(i, a) for (auto &i : a)
+#define each(i, a) for (auto &i : (a))
 #define ch(f, x, y) x = f((x), (y))
 #define ALL(a) (a).begin(), (a).end()
 #define SORT(a) sort(ALL(a))
@@ -142,4 +141,3 @@ ostream &operator<<(ostream &os, const map<K, V> &m) {
 }
 const ll INF = 1e18;
 const ll MOD = 1e9 + 7;
-// end
