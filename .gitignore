@@ -18,7 +18,7 @@ Cargo.lock
 #**/*.rs.bk
 
 # snippet
-*.json
+cpp.json
 !markdown.json
 
 # binary
