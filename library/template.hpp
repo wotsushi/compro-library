@@ -5,10 +5,13 @@
 #define G5(_1, _2, _3, _4, _5, F, ...) F
 #define G6(_1, _2, _3, _4, _5, _6, F, ...) F
 #include <bits/stdc++.h>
+
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
-template <typename T>
-using vec = vector<T>;
+
+<typename T> using vec = vector<T>;
 template <typename T>
 using vec2 = vec<vec<T>>;
 template <typename T>

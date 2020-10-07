@@ -1,3 +1,6 @@
 [submodule "themes/hugo-theme-learn"]
 	path = themes/hugo-theme-learn
 	url = https://github.com/matcornic/hugo-theme-learn.git
+[submodule "ac-library"]
+	path = ac-library
+	url = git@github.com:atcoder/ac-library
