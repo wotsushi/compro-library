@@ -11,7 +11,8 @@ using namespace std;
 using namespace atcoder;
 using ll = long long;
 
-<typename T> using vec = vector<T>;
+template <typename T>
+using vec = vector<T>;
 template <typename T>
 using vec2 = vec<vec<T>>;
 template <typename T>
