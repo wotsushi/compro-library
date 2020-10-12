@@ -20,8 +20,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
-          CPLUS_INCLUDE_PATH: /home/runner/work/compro-library/compro-library/ac-library
         run: |
-          export CPLUS_INCLUDE_PATH
-          ls /home/runner/work/compro-library/compro-library
           oj-verify all
