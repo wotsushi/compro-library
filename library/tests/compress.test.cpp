@@ -5,8 +5,7 @@ int main() {
   {
     vi A{2, 7, 1, 8, 2};
     vi actual = compress(A);
-    vi expected{1, 2, 0, 3, 0};
-    // vi expected{1, 2, 0, 3, 1};
+    vi expected{1, 2, 0, 3, 1};
     assert(actual == expected);
   }
   // 負の値が含まれていてもよい
