@@ -1,7 +1,10 @@
+#define PROBLEM \
+  "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include "template.hpp"
 
 // begin
 int main() {
+  out("Hello World");
   // ll
   {
     ll actual = 12345678901;
