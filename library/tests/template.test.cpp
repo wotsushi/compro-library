@@ -154,6 +154,19 @@ int main() {
         {{{-1}, {-1}}, {{-1}, {-1}}, {{-1}, {-1}}}};
     assert(actual == expected);
   }
+  // def
+  {
+    auto f = def([&](auto &&f, ll n) -> ll {
+      if (n == 0) {
+        return 1;
+      } else {
+        return n * f(n - 1);
+      }
+    });
+    ll actual = f(3);
+    ll expected = 6;
+    assert(actual == expected);
+  }
   // rep
   {
     vi actual;

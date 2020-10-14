@@ -10,7 +10,6 @@
 using namespace std;
 using namespace atcoder;
 using ll = long long;
-
 template <typename T>
 using vec = vector<T>;
 template <typename T>
@@ -49,6 +48,30 @@ using pq = priority_queue<T, vector<T>, greater<T>>;
  * 4)のT型ベクトルを作成します。次元iの長さはn_iです
  */
 #define vecv(...) G6(__VA_ARGS__, VEC4V, VEC3V, VEC2V, VEC1V)(__VA_ARGS__)
+template <typename F>
+struct FixPoint : F {
+  template <typename G>
+  FixPoint(G &&g) : F{forward<G>(g)} {}
+
+  template <typename... Args>
+  decltype(auto) operator()(Args &&... args) const {
+    return F::operator()(*this, forward<Args>(args)...);
+  }
+};
+/**
+ * ローカル関数を定義します。宣言例
+ * auto f = def([&](auto &&f, ll n) -> ll {
+ *   if (n == 0) {
+ *     reutrn 1;
+ *   } else {
+ *     return n * f(n - 1);
+ *   }
+ * }
+ */
+template <typename F>
+inline FixPoint<std::decay_t<F>> def(F &&f) {
+  return std::forward<std::decay_t<F>>(f);
+}
 #define REP0(i, n) for (ll i = 0; i < (n); ++i)
 #define REP(i, j, n) for (ll i = (j); i < (n); ++i)
 /**
