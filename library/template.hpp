@@ -80,7 +80,36 @@ using pq = priority_queue<T, vector<T>, greater<T>>;
  */
 #define rrepi(...) G3(__VA_ARGS__, RREPI, RREP1)(__VA_ARGS__)
 #define each(i, a) for (auto &i : (a))
-#define ch(f, x, y) x = f((x), (y))
+/**
+ * x = min(x, y)を適用します。値が更新されたか否かを返します
+ *
+ * @param x 更新対象の変数の参照
+ * @param y 比較対象の値
+ * @return y < x ならばtrue, そうでなければfalse
+ */
+template <typename T>
+bool chmin(T &x, T y) {
+  if (y < x) {
+    x = y;
+    return true;
+  }
+  return false;
+}
+/**
+ * x = max(x, y)を適用します。値が更新されたか否かを返します
+ *
+ * @param x 更新対象の変数の参照
+ * @param y 比較対象の値
+ * @return y > x ならばtrue, そうでなければfalse
+ */
+template <typename T>
+bool chmax(T &x, T y) {
+  if (y > x) {
+    x = y;
+    return true;
+  }
+  return false;
+}
 #define ALL(a) (a).begin(), (a).end()
 #define SORT(a) sort(ALL(a))
 #define RSORT(a) \

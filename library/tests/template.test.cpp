@@ -1,6 +1,6 @@
 #define PROBLEM \
   "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
-#include "template.hpp"
+#include "../template.hpp"
 
 // begin
 int main() {
@@ -213,11 +213,38 @@ int main() {
     vi expected{3, 3, 3};
     assert(actual == expected);
   }
-  // ch
+  // chmin
   {
-    ll actual = 0;
-    ch(max, actual, 3LL);
-    ll expected = 3;
+    ll x = 2;
+    bool actual = chmin(x, 1LL);
+    ll expected_x = 1;
+    bool expected = true;
+    assert(x == expected_x);
+    assert(actual == expected);
+  }
+  {
+    ll x = 1;
+    bool actual = chmin(x, 2LL);
+    ll expected_x = 1;
+    bool expected = false;
+    assert(x == expected_x);
+    assert(actual == expected);
+  }
+  // chmax
+  {
+    ll x = 1;
+    bool actual = chmax(x, 2LL);
+    ll expected_x = 2;
+    bool expected = true;
+    assert(x == expected_x);
+    assert(actual == expected);
+  }
+  {
+    ll x = 2;
+    bool actual = chmax(x, 1LL);
+    ll expected_x = 2;
+    bool expected = false;
+    assert(x == expected_x);
     assert(actual == expected);
   }
   // ALL
