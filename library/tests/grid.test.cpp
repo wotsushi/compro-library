@@ -1,4 +1,6 @@
-#include "grid.hpp"
+#define PROBLEM \
+  "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
+#include "../grid.hpp"
 
 // begin
 int main() {
@@ -7,7 +9,7 @@ int main() {
   vs A = vs({"ooo", "oxo", "xox", "xxx"});
   // 二次元グリッドAの各セルについて上下左右に隣接するoのセルの個数を数える
   {
-    vvi actual = vvi(H, vi(W));
+    vvi actual = vec(ll, H, W);
     rep(i, H) {
       rep(j, W) {
         way4(i, j, H, W, [&](ll u, ll v) { actual[i][j] += A[u][v] == 'o'; });
@@ -19,7 +21,7 @@ int main() {
   }
   // 二次元グリッドAの各セルについて八方に隣接するoのセルの個数を数える
   {
-    vvi actual = vvi(H, vi(W));
+    vvi actual = vec(ll, H, W);
     rep(i, H) {
       rep(j, W) {
         way8(i, j, H, W, [&](ll u, ll v) { actual[i][j] += A[u][v] == 'o'; });
