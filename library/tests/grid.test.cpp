@@ -4,6 +4,7 @@
 
 // begin
 int main() {
+  out("Hello World");
   ll H = 4;
   ll W = 3;
   vs A = vs({"ooo", "oxo", "xox", "xxx"});
