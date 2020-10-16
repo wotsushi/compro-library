@@ -566,6 +566,14 @@ int main() {
     string expected = "dp = {(bar, 1), (foo, 3)}\n";
     assert(actual == expected);
   }
+  {
+    ostringstream cout;
+    modint1000000007 x = 1;
+    out(x);
+    string actual = "1\n";
+    string expected = "1\n";
+    assert(actual == expected);
+  }
   // INF
   {
     assert(INF > 1e15);

@@ -272,4 +272,9 @@ template <typename K, typename V>
 ostream &operator<<(ostream &os, const map<K, V> &m) {
   return jout(ALL(m), ", ", os << '{') << '}';
 }
+template <int m>
+ostream &operator<<(ostream &os, const static_modint<m> &x) {
+  os << x.val();
+  return os;
+}
 const ll INF = 1e18;
