@@ -1,19 +1,41 @@
 #pragma once
-#include "../../core/template/template.hpp"
+#include "template.hpp"
 
-// begin
+/**
+ * 行列を表すデータ構造です
+ */
 template <typename T>
 struct matrix {
   ll n, m;
   vector<vector<T>> A;
 
-  matrix() {}
+  /**
+   * n次の正方行列として初期化します。各要素の初期値は0です。
+   * @param n 初期化する正方行列の次数
+   */
   matrix(ll n) : n(n), m(n) { A.assign(n, vector<T>(n)); }
+
+  /**
+   * n*m次の行列として初期化します。各要素の初期値は0です。
+   * @param n 初期化する行列の行数
+   * @param m 初期化する行列の列数
+   */
   matrix(ll n, ll m) : n(n), m(m) { A.assign(n, vector<T>(m)); }
+
+  /**
+   * 2次元のVectorに対応する行列を生成します
+   * @param X 生成元の2次元Vector
+   */
   matrix(vector<vector<T>> X) : A(X) {
     n = X.size();
     m = X[0].size();
   }
+
+  /**
+   * 行列累乗を返します
+   * @param k 指数
+   * @return この行列をk乗した行列
+   */
   matrix pow(ll k) {
     matrix<T> res = matrix(n, n);
     rep(i, n) { res[i][i] = 1; }
@@ -97,5 +119,3 @@ template <typename T>
 bool operator!=(const matrix<T> &x, const matrix<T> &y) {
   return x.A != y.A;
 }
-
-// end
