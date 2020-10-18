@@ -11,6 +11,9 @@ vec<W> dijkstra(graph<W> &G, ll s) {
   while (!q.empty()) {
     auto [c, i] = q.top();
     q.pop();
+    if (c > dp[i]) {
+      continue;
+    }
     for (auto [j, w] : G[i]) {
       if (c + w < dp[j]) {
         dp[j] = c + w;
