@@ -1,6 +1,14 @@
 #pragma once
 #include "graph.hpp"
 
+/**
+ * 指定した頂点から各頂点までの最短距離を返します
+ * 計算量: O(ElogV)
+ *
+ * @param G 重み付きグラフ
+ * @param s 最短距離を求める始点
+ * @return dp[i]: sからiへの最短距離
+ */
 template <typename W>
 vec<W> dijkstra(graph<W> &G, ll s) {
   using E = pair<W, ll>;
