@@ -1,6 +1,7 @@
 #include "../lca.hpp"
+#define PROBLEM \
+  "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C"
 
-// begin
 int main() {
   ll(n);
   vi k(n);
@@ -22,4 +23,3 @@ int main() {
     out(lca(u, v));
   }
 }
-// end
