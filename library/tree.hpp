@@ -1,6 +1,10 @@
 #pragma once
 #include "graph.hpp"
 
+/**
+ * 根付き木を表すデータ構造です。
+ * 辺は重み付きでも構いません
+ */
 template <typename W>
 struct tree {
   using E = pair<ll, W>;
@@ -10,8 +14,13 @@ struct tree {
   vector<vector<E>> c;
   vi d;
 
-  tree() {}
-
+  /**
+   * グラフから根付き木を生成します。
+   * 計算量: O(n)
+   *
+   * @param G 木を表すグラフ
+   * @param r 根とする頂点
+   */
   tree(graph<W> &G, ll r = 1) : n(G.n), r(r) {
     p.assign(G.n + 1, E(-2, 0));
     c.assign(G.n + 1, vector<E>());
@@ -33,8 +42,20 @@ struct tree {
     }
   }
 
+  /**
+   * 指定した頂点の親を返します
+   * 計算量: O(1)
+   *
+   * @param i 親を取得する頂点
+   */
   E par(ll i) { return p[i]; }
 
+  /**
+   * 指定した頂点の深さを返します。根の深さを0とします。
+   * 計算量: O(1)
+   *
+   * @param i 深さを取得する頂点
+   */
   ll depth(ll i) { return d[i]; }
 
   vector<E> &operator[](int i) { return c[i]; }
