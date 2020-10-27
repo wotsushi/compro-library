@@ -3,6 +3,7 @@
 #include "../graph.hpp"
 
 int main() {
+  out("Hello World");
   // 無向グラフ
   {
     graph<ll> G(4);
